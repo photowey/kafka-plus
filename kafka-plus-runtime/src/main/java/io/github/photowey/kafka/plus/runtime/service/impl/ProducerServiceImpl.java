@@ -17,6 +17,8 @@ package io.github.photowey.kafka.plus.runtime.service.impl;
 
 import io.github.photowey.kafka.plus.core.clients.builder.producer.ProducerBuilder;
 import io.github.photowey.kafka.plus.core.clients.builder.producer.ProducerBuilderImpl;
+import io.github.photowey.kafka.plus.core.clients.builder.record.ProducerRecordBuilder;
+import io.github.photowey.kafka.plus.core.clients.builder.record.ProducerRecordBuilderImpl;
 import io.github.photowey.kafka.plus.runtime.service.ProducerService;
 
 /**
@@ -31,5 +33,10 @@ public class ProducerServiceImpl implements ProducerService {
     @Override
     public ProducerBuilder createProducer() {
         return new ProducerBuilderImpl();
+    }
+
+    @Override
+    public ProducerRecordBuilder createProducerRecord() {
+        return new ProducerRecordBuilderImpl();
     }
 }

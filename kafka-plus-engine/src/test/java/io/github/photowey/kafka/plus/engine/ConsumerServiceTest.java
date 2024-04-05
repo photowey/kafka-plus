@@ -21,6 +21,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -34,9 +35,11 @@ import java.util.Collections;
  */
 class ConsumerServiceTest extends LocalTest {
 
-    //@Test
+    @Test
     void testConsumer() {
-        try (KafkaConsumer<String, String> consumer = this.kafkaEngine().consumerService().createConsumer()
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaConsumer<String, String> consumer = kafkaEngine.consumerService().createConsumer()
                 .boostrapServers(this.defaultBoostrapServers())
                 .keyDeserializer(StringDeserializer.class)
                 .valueDeserializer(StringDeserializer.class)
@@ -52,9 +55,11 @@ class ConsumerServiceTest extends LocalTest {
         }
     }
 
-    //@Test
+    @Test
     void testConsumer_deserializer_class() {
-        try (KafkaConsumer<String, String> consumer = this.kafkaEngine().consumerService().createConsumer()
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaConsumer<String, String> consumer = kafkaEngine.consumerService().createConsumer()
                 .boostrapServers(this.defaultBoostrapServers())
                 .keyDeserializer(StringDeserializer.class)
                 .valueDeserializer(StringDeserializer.class)
@@ -80,7 +85,9 @@ class ConsumerServiceTest extends LocalTest {
 
     //@Test
     void testConsumer_deserializer_string() {
-        try (KafkaConsumer<String, String> consumer = this.kafkaEngine().consumerService().createConsumer()
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaConsumer<String, String> consumer = kafkaEngine.consumerService().createConsumer()
                 .boostrapServers(this.defaultBoostrapServers())
                 .keyDeserializer(StringDeserializer.class.getName())
                 .valueDeserializer(StringDeserializer.class.getName())

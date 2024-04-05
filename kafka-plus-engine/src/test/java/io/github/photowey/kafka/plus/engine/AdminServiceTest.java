@@ -21,6 +21,7 @@ import org.apache.kafka.clients.admin.DeleteTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.KafkaFuture;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 
@@ -33,10 +34,24 @@ import java.util.Collections;
  */
 class AdminServiceTest extends LocalTest {
 
+    @Test
+    void testAdmin() {
+        KafkaEngine kafkaEngine = super.kafkaEngine();
+
+        try (Admin admin = kafkaEngine.adminService().createAdmin()
+                .boostrapServers(this.defaultBoostrapServers())
+                .checkConfigs(super::testBoostrapServers)
+                .build()) {
+
+            Assertions.assertNotNull(admin);
+        }
+    }
+
     //@Test
     void testCreateTopic() throws Exception {
         KafkaEngine kafkaEngine = super.kafkaEngine();
-        try (Admin admin = super.kafkaEngine().adminService().createAdmin()
+
+        try (Admin admin = kafkaEngine.adminService().createAdmin()
                 .boostrapServers(this.defaultBoostrapServers())
                 .checkConfigs(super::testBoostrapServers)
                 .build()) {
@@ -58,6 +73,7 @@ class AdminServiceTest extends LocalTest {
     //@Test
     void testDeleteTopic() throws Exception {
         KafkaEngine kafkaEngine = super.kafkaEngine();
+
         try (Admin admin = kafkaEngine.adminService().createAdmin()
                 .boostrapServers(this.defaultBoostrapServers())
                 .checkConfigs(super::testBoostrapServers)

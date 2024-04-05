@@ -13,32 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.photowey.kafka.plus.runtime.service;
+package io.github.photowey.kafka.plus.core.clients.builder.record;
 
-import io.github.photowey.kafka.plus.core.clients.builder.producer.ProducerBuilder;
-import io.github.photowey.kafka.plus.core.clients.builder.record.ProducerRecordBuilder;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.header.Header;
 
 /**
- * {@code ProducerService}
+ * {@code ProducerRecordBuilder}
  *
  * @author photowey
- * @date 2024/04/05
+ * @date 2024/04/06
  * @since 1.0.0
  */
-public interface ProducerService {
+public interface ProducerRecordBuilder {
 
-    /**
-     * Create {@link ProducerRecordBuilder} instance.
-     *
-     * @return {@link ProducerRecordBuilder}
-     */
-    ProducerRecordBuilder createProducerRecord();
+    ProducerRecordBuilder topic(String topic);
 
-    /**
-     * Create {@link ProducerBuilder} instance.
-     *
-     * @return {@link ProducerBuilder}
-     */
-    ProducerBuilder createProducer();
+    ProducerRecordBuilder partition(Integer partition);
 
+    ProducerRecordBuilder headers(Iterable<Header> headers);
+
+    <K> ProducerRecordBuilder key(K key);
+
+    <V> ProducerRecordBuilder value(V value);
+
+    ProducerRecordBuilder timestamp(Long timestamp);
+
+    <K, V> ProducerRecord<K, V> build();
 }

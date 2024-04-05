@@ -34,7 +34,10 @@ class ProducerServiceTest extends LocalTest {
     void testProducer() {
         StringSerializer keySerializer = new StringSerializer();
         StringSerializer valueSerializer = new StringSerializer();
-        try (KafkaProducer<String, String> producer = this.kafkaEngine().producerService().createProducer()
+
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaProducer<String, String> producer = kafkaEngine.producerService().createProducer()
                 .boostrapServers(this.defaultBoostrapServers())
                 .keySerializer(keySerializer)
                 .valueSerializer(valueSerializer)
@@ -44,20 +47,39 @@ class ProducerServiceTest extends LocalTest {
         }
     }
 
+    @Test
+    void testProducerRecord() {
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        ProducerRecord<String, String> record = kafkaEngine.producerService().createProducerRecord()
+                .topic(this.defaultTopic())
+                .key("key-9527")
+                .value("value-9527")
+                .build();
+
+        Assertions.assertNotNull(record);
+    }
+
     //@Test
     void testProducer_serializer_instance() {
         StringSerializer keySerializer = new StringSerializer();
         StringSerializer valueSerializer = new StringSerializer();
-        try (KafkaProducer<String, String> producer = this.kafkaEngine().producerService().createProducer()
+
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaProducer<String, String> producer = kafkaEngine.producerService().createProducer()
                 .boostrapServers(this.defaultBoostrapServers())
                 .keySerializer(keySerializer)
                 .valueSerializer(valueSerializer)
                 .build()) {
 
             for (int i = 0; i < 100; i++) {
-                ProducerRecord<String, String> record = new ProducerRecord<>(
-                        this.defaultTopic(), "key-" + i, "value-" + i
-                );
+                ProducerRecord<String, String> record = kafkaEngine.producerService().createProducerRecord()
+                        .topic(this.defaultTopic())
+                        .key("key-" + i)
+                        .value("value-" + i)
+                        .build();
+
                 producer.send(record);
             }
         }
@@ -67,16 +89,21 @@ class ProducerServiceTest extends LocalTest {
 
     //@Test
     void testProducer_serializer_class() {
-        try (KafkaProducer<String, String> producer = this.kafkaEngine().producerService().createProducer()
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaProducer<String, String> producer = kafkaEngine.producerService().createProducer()
                 .boostrapServers(this.defaultBoostrapServers())
                 .keySerializer(StringSerializer.class)
                 .valueSerializer(StringSerializer.class)
                 .build()) {
 
             for (int i = 0; i < 100; i++) {
-                ProducerRecord<String, String> record = new ProducerRecord<>(
-                        this.defaultTopic(), "key-" + i, "value-" + i
-                );
+                ProducerRecord<String, String> record = kafkaEngine.producerService().createProducerRecord()
+                        .topic(this.defaultTopic())
+                        .key("key-" + i)
+                        .value("value-" + i)
+                        .build();
+
                 producer.send(record);
             }
         }
@@ -86,16 +113,21 @@ class ProducerServiceTest extends LocalTest {
 
     //@Test
     void testProducer_serializer_string() {
-        try (KafkaProducer<String, String> producer = this.kafkaEngine().producerService().createProducer()
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaProducer<String, String> producer = kafkaEngine.producerService().createProducer()
                 .boostrapServers(this.defaultBoostrapServers())
                 .keySerializer(StringSerializer.class.getName())
                 .valueSerializer(StringSerializer.class.getName())
                 .build()) {
 
             for (int i = 0; i < 100; i++) {
-                ProducerRecord<String, String> record = new ProducerRecord<>(
-                        this.defaultTopic(), "key-" + i, "value-" + i
-                );
+                ProducerRecord<String, String> record = kafkaEngine.producerService().createProducerRecord()
+                        .topic(this.defaultTopic())
+                        .key("key-" + i)
+                        .value("value-" + i)
+                        .build();
+
                 producer.send(record);
             }
         }
