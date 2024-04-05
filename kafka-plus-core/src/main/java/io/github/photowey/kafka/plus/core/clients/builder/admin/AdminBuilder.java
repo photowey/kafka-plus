@@ -13,14 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.photowey.kafka.plus.core.domain.consumer.builder;
+package io.github.photowey.kafka.plus.core.clients.builder.admin;
+
+import org.apache.kafka.clients.admin.Admin;
+
+import java.util.Map;
+import java.util.Properties;
+import java.util.function.Consumer;
 
 /**
- * {@code ConsumerBuilder}
+ * {@code AdminBuilder}
  *
  * @author photowey
  * @date 2024/04/05
  * @since 1.0.0
  */
-public interface ConsumerBuilder {
+public interface AdminBuilder {
+
+    AdminBuilder boostrapServers(String bootstrapServers);
+
+    AdminBuilder props(Properties props);
+
+    AdminBuilder configs(Map<String, Object> configMap);
+
+    AdminBuilder checkProps(Consumer<Properties> fx);
+
+    AdminBuilder checkConfigs(Consumer<Map<String, Object>> fx);
+
+    Admin build();
 }

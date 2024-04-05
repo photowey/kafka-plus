@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.photowey.kafka.plus.core.domain.producer.builder;
+package io.github.photowey.kafka.plus.engine;
 
 /**
- * {@code ProducerBuilder}
+ * {@code KafkaEngineAware}
  *
  * @author photowey
  * @date 2024/04/05
  * @since 1.0.0
  */
-public interface ProducerBuilder {
+public interface KafkaEngineAware {
+
+    void setKafkaEngine(KafkaEngine kafkaEngine);
 }
