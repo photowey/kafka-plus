@@ -18,42 +18,31 @@ package io.github.photowey.kafka.plus.engine;
 import io.github.photowey.kafka.plus.runtime.service.AdminService;
 import io.github.photowey.kafka.plus.runtime.service.ConsumerService;
 import io.github.photowey.kafka.plus.runtime.service.ProducerService;
+import io.github.photowey.kafka.plus.runtime.service.impl.AdminServiceImpl;
+import io.github.photowey.kafka.plus.runtime.service.impl.ConsumerServiceImpl;
+import io.github.photowey.kafka.plus.runtime.service.impl.ProducerServiceImpl;
 
 /**
- * {@code KafkaEngine}
+ * {@code KafkaEngineImpl}
  *
  * @author photowey
  * @date 2024/04/05
  * @since 1.0.0
  */
-public interface KafkaEngine extends Engine {
+public class KafkaEngineImpl extends AbstractEngine {
 
-    /**
-     * Create {@link AdminService} instance.
-     * <pre>
-     * try (Admin admin = KafkaEngineHolder.INSTANCE.kafkaEngine().adminService().createAdmin()
-     *        .boostrapServers("localhost:9092")
-     *        .checkMap((x) -> {})
-     *        .create()) {
-     *    // do something.
-     * }
-     * </pre>
-     *
-     * @return {@link AdminService}
-     */
-    AdminService adminService();
+    @Override
+    public AdminService adminService() {
+        return this.getSharedObject(AdminService.class, AdminServiceImpl::new);
+    }
 
-    /**
-     * Create {@link ConsumerService} instance.
-     *
-     * @return {@link ConsumerService}
-     */
-    ConsumerService consumerService();
+    @Override
+    public ConsumerService consumerService() {
+        return this.getSharedObject(ConsumerService.class, ConsumerServiceImpl::new);
+    }
 
-    /**
-     * Create {@link ProducerService} instance.
-     *
-     * @return {@link ProducerService}
-     */
-    ProducerService producerService();
+    @Override
+    public ProducerService producerService() {
+        return this.getSharedObject(ProducerService.class, ProducerServiceImpl::new);
+    }
 }

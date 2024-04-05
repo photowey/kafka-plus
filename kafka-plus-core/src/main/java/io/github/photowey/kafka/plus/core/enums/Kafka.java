@@ -15,6 +15,8 @@
  */
 package io.github.photowey.kafka.plus.core.enums;
 
+import org.apache.kafka.clients.admin.AdminClientConfig;
+
 /**
  * {@code Kafka}
  *
@@ -33,6 +35,30 @@ public enum Kafka {
 
         ;
 
+    }
+
+    public enum Bootstrap {
+
+        ;
+
+        public enum Server {
+
+            ADDRESS("bootstrap.servers", AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG),
+
+            ;
+
+            private String name;
+            private String value;
+
+            Server(String name, String value) {
+                this.name = name;
+                this.value = value;
+            }
+
+            public String value() {
+                return this.value;
+            }
+        }
     }
 
     public enum Consumer {

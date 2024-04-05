@@ -13,14 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.photowey.kafka.plus.core.domain.consumer.builder;
+package io.github.photowey.kafka.plus.core.clients.builder;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
- * {@code ConsumerBuilder}
+ * {@code AbstractService}
  *
  * @author photowey
  * @date 2024/04/05
  * @since 1.0.0
  */
-public interface ConsumerBuilder {
+public abstract class AbstractBuilder {
+
+    protected Map<String, Object> configs;
+    protected Properties props;
+
+    protected void initConfigsIfNecessary() {
+        if (null == this.configs) {
+            this.configs = new HashMap<>(1 << 3);
+        }
+    }
+
 }
