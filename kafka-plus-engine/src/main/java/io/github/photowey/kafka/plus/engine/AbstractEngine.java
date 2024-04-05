@@ -15,6 +15,8 @@
  */
 package io.github.photowey.kafka.plus.engine;
 
+import io.github.photowey.kafka.plus.engine.holder.KafkaEngineHolder;
+
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
@@ -43,7 +45,16 @@ public abstract class AbstractEngine implements KafkaEngine {
     }
 
     public <T> T getSharedObject(Class<T> sharedType, Supplier<T> fx) {
-        Object target = this.sharedObjects.computeIfAbsent(sharedType, (x) -> fx.get());
+        Object target = this.sharedObjects.computeIfAbsent(sharedType, (x) -> {
+            T t = fx.get();
+            // Inject KafkaEngine if necessary.
+            if (t instanceof KafkaEngineAware) {
+                ((KafkaEngineAware) t).setKafkaEngine(KafkaEngineHolder.INSTANCE.kafkaEngine());
+            }
+
+            return t;
+        });
+
         return (T) target;
     }
 
