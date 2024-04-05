@@ -15,6 +15,8 @@
  */
 package io.github.photowey.kafka.plus.core.clients.builder;
 
+import io.github.photowey.kafka.plus.core.exception.KafkaPlusRuntimeException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -37,4 +39,15 @@ public abstract class AbstractBuilder {
         }
     }
 
+    protected void checkPropsIfNecessary() {
+        if (null == this.props || this.props.isEmpty()) {
+            throw new KafkaPlusRuntimeException("The props can't be null/empty");
+        }
+    }
+
+    protected void checkConfigsIfNecessary() {
+        if (null == this.configs || this.configs.isEmpty()) {
+            throw new KafkaPlusRuntimeException("The configs can't be null/empty");
+        }
+    }
 }

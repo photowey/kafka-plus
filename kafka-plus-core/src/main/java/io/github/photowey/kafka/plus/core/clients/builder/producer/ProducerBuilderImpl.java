@@ -96,11 +96,14 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     @SuppressWarnings("unchecked")
-    public <K, V> KafkaProducer<K, V> create() {
+    public <K, V> KafkaProducer<K, V> build() {
         if (null != super.props) {
+            this.checkPropsIfNecessary();
+
             return new KafkaProducer<>(super.props, (Serializer<K>) this.keySerializer, (Serializer<V>) this.valueSerializer);
         }
 
+        this.checkConfigsIfNecessary();
         return new KafkaProducer<>(super.configs, (Serializer<K>) this.keySerializer, (Serializer<V>) this.valueSerializer);
     }
 }

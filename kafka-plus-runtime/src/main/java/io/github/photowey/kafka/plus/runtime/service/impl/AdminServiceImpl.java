@@ -17,6 +17,8 @@ package io.github.photowey.kafka.plus.runtime.service.impl;
 
 import io.github.photowey.kafka.plus.core.clients.builder.admin.AdminBuilder;
 import io.github.photowey.kafka.plus.core.clients.builder.admin.AdminBuilderImpl;
+import io.github.photowey.kafka.plus.core.clients.builder.admin.topic.NewTopicBuilder;
+import io.github.photowey.kafka.plus.core.clients.builder.admin.topic.NewTopicBuilderImpl;
 import io.github.photowey.kafka.plus.runtime.service.AdminService;
 
 /**
@@ -31,5 +33,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public AdminBuilder createAdmin() {
         return new AdminBuilderImpl();
+    }
+
+    @Override
+    public NewTopicBuilder createTopic() {
+        return new NewTopicBuilderImpl();
     }
 }

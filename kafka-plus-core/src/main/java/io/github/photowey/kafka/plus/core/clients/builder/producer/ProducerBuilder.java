@@ -52,6 +52,5 @@ public interface ProducerBuilder {
 
     // ----------------------------------------------------------------
 
-    <K, V> KafkaProducer<K, V> create();
-
+    <K, V> KafkaProducer<K, V> build();
 }

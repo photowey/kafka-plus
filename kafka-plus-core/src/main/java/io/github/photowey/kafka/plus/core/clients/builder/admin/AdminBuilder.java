@@ -40,5 +40,5 @@ public interface AdminBuilder {
 
     AdminBuilder checkConfigs(Consumer<Map<String, Object>> fx);
 
-    Admin create();
+    Admin build();
 }

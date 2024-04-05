@@ -96,11 +96,14 @@ public class ConsumerBuilderImpl extends AbstractBuilder implements ConsumerBuil
 
     @Override
     @SuppressWarnings("unchecked")
-    public <K, V> KafkaConsumer<K, V> create() {
+    public <K, V> KafkaConsumer<K, V> build() {
         if (null != super.props) {
+            this.checkPropsIfNecessary();
+
             return new KafkaConsumer<>(super.props, (Deserializer<K>) this.keyDeserializer, (Deserializer<V>) this.valueDeserializer);
         }
 
+        this.checkConfigsIfNecessary();
         return new KafkaConsumer<>(this.configs, (Deserializer<K>) this.keyDeserializer, (Deserializer<V>) this.valueDeserializer);
     }
 }

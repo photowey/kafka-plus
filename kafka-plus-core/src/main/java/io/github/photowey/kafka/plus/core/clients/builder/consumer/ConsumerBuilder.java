@@ -52,5 +52,5 @@ public interface ConsumerBuilder {
 
     // ----------------------------------------------------------------
 
-    <K, V> KafkaConsumer<K, V> create();
+    <K, V> KafkaConsumer<K, V> build();
 }

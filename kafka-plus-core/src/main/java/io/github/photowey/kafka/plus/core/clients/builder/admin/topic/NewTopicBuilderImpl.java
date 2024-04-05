@@ -15,6 +15,13 @@
  */
 package io.github.photowey.kafka.plus.core.clients.builder.admin.topic;
 
+import io.github.photowey.kafka.plus.core.exception.KafkaPlusRuntimeException;
+import org.apache.kafka.clients.admin.NewTopic;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
 /**
  * {@code NewTopicBuilderImpl}
  *
@@ -23,4 +30,92 @@ package io.github.photowey.kafka.plus.core.clients.builder.admin.topic;
  * @since 1.0.0
  */
 public class NewTopicBuilderImpl implements NewTopicBuilder {
+
+    private String name;
+    private Integer numPartitions;
+    private Short replicationFactor;
+    private Map<Integer, List<Integer>> replicasAssignments;
+    private Map<String, String> configs = null;
+
+    @Override
+    public NewTopicBuilder topic(String topic) {
+        this.name = topic;
+
+        return this;
+    }
+
+    @Override
+    public NewTopicBuilder numPartitions(Integer numPartitions) {
+        this.numPartitions = numPartitions;
+
+        return this;
+    }
+
+    @Override
+    public NewTopicBuilder replicationFactor(Short replicationFactor) {
+        this.replicationFactor = replicationFactor;
+
+        return this;
+    }
+
+    @Override
+    public NewTopicBuilder replicasAssignments(Map<Integer, List<Integer>> replicasAssignments) {
+        this.replicasAssignments = replicasAssignments;
+
+        return this;
+    }
+
+    @Override
+    public NewTopicBuilder configs(Map<String, String> configs) {
+        this.configs = configs;
+
+        return this;
+    }
+
+    @Override
+    public NewTopic build() {
+        this.check();
+
+        if (null != this.replicasAssignments) {
+            this.checkReplicasAssignmentsIfNecessary();
+
+            NewTopic newTopic = new NewTopic(this.name, this.replicasAssignments);
+            this.configs(newTopic, this.configs);
+
+            return newTopic;
+        }
+
+        NewTopic newTopic = new NewTopic(this.name, Optional.ofNullable(this.numPartitions), Optional.ofNullable(this.replicationFactor));
+        this.configs(newTopic, this.configs);
+
+        return newTopic;
+    }
+
+    // ----------------------------------------------------------------
+
+    private void check() {
+        this.checkTopic();
+    }
+
+    // ----------------------------------------------------------------
+
+    private void checkTopic() {
+        if (null == this.name || this.name.isEmpty()) {
+            throw new KafkaPlusRuntimeException("The topic name can't be null/empty.");
+        }
+    }
+
+    protected void checkReplicasAssignmentsIfNecessary() {
+        if (this.replicasAssignments.isEmpty()) {
+            throw new KafkaPlusRuntimeException("The replicasAssignments can't be empty");
+        }
+    }
+
+    // ----------------------------------------------------------------
+
+    private void configs(NewTopic topic, Map<String, String> configs) {
+        if (null != configs) {
+            topic.configs(configs);
+        }
+    }
 }

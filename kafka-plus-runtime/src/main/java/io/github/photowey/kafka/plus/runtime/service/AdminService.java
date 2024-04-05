@@ -16,6 +16,7 @@
 package io.github.photowey.kafka.plus.runtime.service;
 
 import io.github.photowey.kafka.plus.core.clients.builder.admin.AdminBuilder;
+import io.github.photowey.kafka.plus.core.clients.builder.admin.topic.NewTopicBuilder;
 
 /**
  * {@code AdminService}
@@ -26,6 +27,17 @@ import io.github.photowey.kafka.plus.core.clients.builder.admin.AdminBuilder;
  */
 public interface AdminService {
 
+    /**
+     * Create {@link AdminBuilder} instance.
+     *
+     * @return {@link AdminBuilder}
+     */
     AdminBuilder createAdmin();
 
+    /**
+     * Create {@link NewTopicBuilder} instance.
+     *
+     * @return {@link NewTopicBuilder}
+     */
+    NewTopicBuilder createTopic();
 }

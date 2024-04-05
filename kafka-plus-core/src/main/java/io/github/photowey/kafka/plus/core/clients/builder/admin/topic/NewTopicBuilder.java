@@ -15,6 +15,11 @@
  */
 package io.github.photowey.kafka.plus.core.clients.builder.admin.topic;
 
+import org.apache.kafka.clients.admin.NewTopic;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * {@code NewTopicBuilder}
  *
@@ -23,4 +28,16 @@ package io.github.photowey.kafka.plus.core.clients.builder.admin.topic;
  * @since 1.0.0
  */
 public interface NewTopicBuilder {
+
+    NewTopicBuilder topic(String topic);
+
+    NewTopicBuilder numPartitions(Integer numPartitions);
+
+    NewTopicBuilder replicationFactor(Short replicationFactor);
+
+    NewTopicBuilder replicasAssignments(Map<Integer, List<Integer>> replicasAssignments);
+
+    NewTopicBuilder configs(Map<String, String> configs);
+
+    NewTopic build();
 }

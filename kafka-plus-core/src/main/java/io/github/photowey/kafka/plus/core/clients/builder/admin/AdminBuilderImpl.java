@@ -100,11 +100,14 @@ public class AdminBuilderImpl extends AbstractBuilder implements AdminBuilder {
     // ----------------------------------------------------------------
 
     @Override
-    public Admin create() {
+    public Admin build() {
         if (null != super.props) {
+            this.checkPropsIfNecessary();
+
             return Admin.create(super.props);
         }
 
+        this.checkConfigsIfNecessary();
         return Admin.create(super.configs);
     }
 }
