@@ -20,6 +20,7 @@ import io.github.photowey.kafka.plus.core.enums.Kafka;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.Deserializer;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
@@ -36,10 +37,52 @@ public class ConsumerBuilderImpl extends AbstractBuilder implements ConsumerBuil
     private Deserializer<?> keyDeserializer;
     private Deserializer<?> valueDeserializer;
 
+    private Collection<String> topics;
+
     @Override
     public ConsumerBuilder boostrapServers(String bootstrapServers) {
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Bootstrap.Server.ADDRESS.value(), bootstrapServers);
+
+        return this;
+    }
+
+    @Override
+    public ConsumerBuilder keyDeserializer(String keyDeserializer) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Consumer.KEY_DESERIALIZER.key(), keyDeserializer);
+
+        return this;
+    }
+
+    @Override
+    public ConsumerBuilder valueDeserializer(String valueDeserializer) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Consumer.VALUE_DESERIALIZER.key(), valueDeserializer);
+
+        return this;
+    }
+
+    @Override
+    public ConsumerBuilder autoOffsetReset(Kafka.Consumer.AutoOffsetReset offsetReset) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Consumer.AUTO_OFFSET_RESET.key(), offsetReset.value());
+
+        return this;
+    }
+
+    @Override
+    public ConsumerBuilder groupId(String groupId) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Consumer.GROUP_ID.key(), groupId);
+
+        return this;
+    }
+
+    @Override
+    public ConsumerBuilder autoCommitEnabled(boolean enabled) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Consumer.AUTO_COMMIT_ENABLED.key(), String.valueOf(enabled));
 
         return this;
     }
@@ -95,15 +138,38 @@ public class ConsumerBuilderImpl extends AbstractBuilder implements ConsumerBuil
     // ----------------------------------------------------------------
 
     @Override
+    public ConsumerBuilder subscribe(Collection<String> topics) {
+        this.topics = topics;
+
+        return this;
+    }
+
+    // ----------------------------------------------------------------
+
+    @Override
     @SuppressWarnings("unchecked")
     public <K, V> KafkaConsumer<K, V> build() {
         if (null != super.props) {
             this.checkPropsIfNecessary();
 
-            return new KafkaConsumer<>(super.props, (Deserializer<K>) this.keyDeserializer, (Deserializer<V>) this.valueDeserializer);
+            KafkaConsumer<K, V> consumer = new KafkaConsumer<>(
+                    super.props, (Deserializer<K>) this.keyDeserializer, (Deserializer<V>) this.valueDeserializer);
+            this.subscribe(consumer, this.topics);
+
+            return consumer;
         }
 
         this.checkConfigsIfNecessary();
-        return new KafkaConsumer<>(this.configs, (Deserializer<K>) this.keyDeserializer, (Deserializer<V>) this.valueDeserializer);
+        KafkaConsumer<K, V> consumer = new KafkaConsumer<>(
+                this.configs, (Deserializer<K>) this.keyDeserializer, (Deserializer<V>) this.valueDeserializer);
+        this.subscribe(consumer, this.topics);
+
+        return consumer;
+    }
+
+    private <K, V> void subscribe(KafkaConsumer<K, V> consumer, Collection<String> topics) {
+        if (null != this.topics && !this.topics.isEmpty()) {
+            consumer.subscribe(topics);
+        }
     }
 }

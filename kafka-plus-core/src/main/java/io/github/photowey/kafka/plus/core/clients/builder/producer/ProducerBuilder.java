@@ -37,7 +37,20 @@ public interface ProducerBuilder {
 
     <K> ProducerBuilder keySerializer(Serializer<K> keySerializer);
 
+
     <V> ProducerBuilder valueSerializer(Serializer<V> valueSerializer);
+
+    default <K> ProducerBuilder keySerializer(Class<K> keySerializer) {
+        return this.keySerializer(keySerializer.getName());
+    }
+
+    default <V> ProducerBuilder valueSerializer(Class<V> valueSerializer) {
+        return this.valueSerializer(valueSerializer.getName());
+    }
+
+    ProducerBuilder keySerializer(String keySerializer);
+
+    ProducerBuilder valueSerializer(String valueSerializer);
 
     // ----------------------------------------------------------------
     ProducerBuilder props(Properties props);

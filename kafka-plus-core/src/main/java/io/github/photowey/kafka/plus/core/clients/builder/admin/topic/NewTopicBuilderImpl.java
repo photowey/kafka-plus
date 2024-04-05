@@ -52,8 +52,10 @@ public class NewTopicBuilderImpl implements NewTopicBuilder {
     }
 
     @Override
-    public NewTopicBuilder replicationFactor(Short replicationFactor) {
-        this.replicationFactor = replicationFactor;
+    public NewTopicBuilder replicationFactor(Integer replicationFactor) {
+        if (null != replicationFactor) {
+            this.replicationFactor = replicationFactor.shortValue();
+        }
 
         return this;
     }

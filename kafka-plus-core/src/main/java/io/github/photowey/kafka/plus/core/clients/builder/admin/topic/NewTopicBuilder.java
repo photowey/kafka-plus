@@ -33,7 +33,7 @@ public interface NewTopicBuilder {
 
     NewTopicBuilder numPartitions(Integer numPartitions);
 
-    NewTopicBuilder replicationFactor(Short replicationFactor);
+    NewTopicBuilder replicationFactor(Integer replicationFactor);
 
     NewTopicBuilder replicasAssignments(Map<Integer, List<Integer>> replicasAssignments);
 

@@ -15,11 +15,11 @@
  */
 package io.github.photowey.kafka.plus.core.clients.builder.consumer;
 
+import io.github.photowey.kafka.plus.core.enums.Kafka;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.Deserializer;
 
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -32,6 +32,24 @@ import java.util.function.Consumer;
 public interface ConsumerBuilder {
 
     ConsumerBuilder boostrapServers(String bootstrapServers);
+
+    default <K> ConsumerBuilder keyDeserializer(Class<K> keyDeserializer) {
+        return this.keyDeserializer(keyDeserializer.getName());
+    }
+
+    default <V> ConsumerBuilder valueDeserializer(Class<V> valueDeserializer) {
+        return this.valueDeserializer(valueDeserializer.getName());
+    }
+
+    ConsumerBuilder keyDeserializer(String keyDeserializer);
+
+    ConsumerBuilder valueDeserializer(String valueDeserializer);
+
+    ConsumerBuilder autoOffsetReset(Kafka.Consumer.AutoOffsetReset offsetReset);
+
+    ConsumerBuilder groupId(String groupId);
+
+    ConsumerBuilder autoCommitEnabled(boolean enabled);
 
     // ----------------------------------------------------------------
 
@@ -49,6 +67,13 @@ public interface ConsumerBuilder {
     ConsumerBuilder checkProps(Consumer<Properties> fx);
 
     ConsumerBuilder checkConfigs(Consumer<Map<String, Object>> fx);
+
+    // ----------------------------------------------------------------
+    default ConsumerBuilder subscribe(String... topics) {
+        return this.subscribe(new HashSet<>(Arrays.asList(topics)));
+    }
+
+    ConsumerBuilder subscribe(Collection<String> topics);
 
     // ----------------------------------------------------------------
 

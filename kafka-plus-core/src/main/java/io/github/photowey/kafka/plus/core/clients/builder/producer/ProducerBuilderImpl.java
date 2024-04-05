@@ -50,14 +50,30 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
     public <K> ProducerBuilder keySerializer(Serializer<K> keySerializer) {
         this.keySerializer = keySerializer;
 
-        return null;
+        return this;
     }
 
     @Override
     public <V> ProducerBuilder valueSerializer(Serializer<V> valueSerializer) {
         this.valueSerializer = valueSerializer;
 
-        return null;
+        return this;
+    }
+
+    @Override
+    public ProducerBuilder keySerializer(String keySerializer) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.KEY_SERIALIZER.key(), keySerializer);
+
+        return this;
+    }
+
+    @Override
+    public ProducerBuilder valueSerializer(String valueSerializer) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.VALUE_DESERIALIZER.key(), valueSerializer);
+
+        return this;
     }
 
     // ----------------------------------------------------------------
