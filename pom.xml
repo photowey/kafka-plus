@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.7.5</version>
+    </parent>
+
+    <groupId>io.github.photowey</groupId>
+    <artifactId>kafka-plus</artifactId>
+    <!-- ${kafka.version}.x.y -->
+    <version>3.7.0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>An extender of Apache Kafka (the "Kafka").</description>
+    <url>${io.github.photowey.project.url}</url>
+
+    <inceptionYear>2024</inceptionYear>
+
+    <modules>
+        <module>kafka-plus-core</module>
+        <module>kafka-plus-engine</module>
+    </modules>
+
+    <licenses>
+        <license>
+            <name>The Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>photowey</name>
+            <email>photowey@gmail.com</email>
+            <organization>io.github.photowey</organization>
+            <organizationUrl>https://photowey.github.io</organizationUrl>
+        </developer>
+    </developers>
+
+    <!-- @formatter:off -->
+    <scm>
+        <connection>scm:git:git@github.com:photowey/kafka-plus.git</connection>
+        <developerConnection>scm:git:git@github.com:photowey/kafka-plus.git</developerConnection>
+        <url>https://github.com/photowey/kafka-plus</url>
+        <tag>HEAD</tag>
+    </scm>
+    <!-- @formatter:on -->
+
+    <!-- @formatter:off -->
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-license-plugin.version>3.0</maven-license-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+
+        <maven-source-plugin.version>2.2.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
+        <maven-versions-plugin.version>2.7</maven-versions-plugin.version>
+        <central-publishing-maven-plugin.version>0.4.0</central-publishing-maven-plugin.version>
+
+        <maven-git-commit-id-plugin.version>4.9.10</maven-git-commit-id-plugin.version>
+
+        <kafka.version>3.7.0</kafka.version>
+
+        <io.github.photowey.project.url>https://github.com/photowey/kafka-plus</io.github.photowey.project.url>
+    </properties>
+    <!-- @formatter:on -->
+
+    <dependencies>
+    </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>dev</id>
+            <name>local</name>
+            <url>file:///${env.MAVEN_REPO}</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven-release-plugin.version}</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <generateReleasePoms>false</generateReleasePoms>
+                    <tagNameFormat>@{project.version}</tagNameFormat>
+                    <arguments>-DskipTests</arguments>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>${git-commit-id-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>git</id>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                        <phase>initialize</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${maven-license-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>remove</goal>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <quiet>true</quiet>
+                    <inlineHeader>
+                        <![CDATA[
+Copyright © 2024 the original author or authors.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+]]>
+                    </inlineHeader>
+                    <properties>
+                        <owner>photowey</owner>
+                        <email>photowey@gmail.com</email>
+                    </properties>
+                    <excludes>
+                        <exclude>.gitignore</exclude>
+                        <exclude>LICENSE</exclude>
+                        <exclude>**/.mvn/**</exclude>
+                        <exclude>**/*.properties</exclude>
+                        <exclude>**/*.yml</exclude>
+                        <exclude>**/*.xml</exclude>
+                        <exclude>**/*.txt</exclude>
+                        <exclude>**/*.md</exclude>
+                        <exclude>**/*.cmd</exclude>
+                        <exclude>**/*.sh</exclude>
+                        <exclude>**/shared/**/*.*</exclude>
+                    </excludes>
+                    <strictCheck>true</strictCheck>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                    </mapping>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${maven-versions-plugin.version}</version>
+                <configuration>
+                    <generateBackupPoms>false</generateBackupPoms>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <configuration>
+                            <tags>
+                                <tag>
+                                    <name>date</name>
+                                    <placement>a</placement>
+                                    <head>Create time</head>
+                                </tag>
+                            </tags>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.sonatype.central</groupId>
+                        <artifactId>central-publishing-maven-plugin</artifactId>
+                        <version>${central-publishing-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <publishingServerId>central</publishingServerId>
+                            <tokenAuth>true</tokenAuth>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+
+</project>
