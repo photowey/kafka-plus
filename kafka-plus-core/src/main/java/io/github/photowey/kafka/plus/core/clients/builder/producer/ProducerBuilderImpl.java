@@ -169,6 +169,14 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
     // ----------------------------------------------------------------
 
     @Override
+    public ProducerBuilder lingerMs(long millis) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.LINGER_MS.key(), millis);
+
+        return this;
+    }
+
+    @Override
     public ProducerBuilder maxBlockMs(long millis) {
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Producer.MAX_BLOCK_MS.key(), millis);

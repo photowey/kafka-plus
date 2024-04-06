@@ -95,6 +95,8 @@ public interface ProducerBuilder {
 
     // ----------------------------------------------------------------
 
+    ProducerBuilder lingerMs(long millis);
+
     ProducerBuilder maxBlockMs(long millis);
 
     ProducerBuilder requestTimeoutMs(long millis);

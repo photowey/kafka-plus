@@ -141,6 +141,7 @@ public enum Kafka {
         BATCH_SIZE("The producer will attempt to batch records together into fewer requests whenever multiple records are being sent to the same partition.", ProducerConfig.BATCH_SIZE_CONFIG),
         BUFFER_MEMORY_SIZE("The total bytes of memory the producer can use to buffer records waiting to be sent to the server.", ProducerConfig.BUFFER_MEMORY_CONFIG),
 
+        LINGER_MS("The producer groups together any records that arrive in between request transmissions into a single batched request.", ProducerConfig.LINGER_MS_CONFIG),
         MAX_BLOCK_MS("The configuration controls how long the KafkaProducer send()/... methods will block.", ProducerConfig.MAX_BLOCK_MS_CONFIG),
         REQUEST_TIMEOUT_MS(CommonClientConfigs.REQUEST_TIMEOUT_MS_DOC, ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG),
         DELIVERY_TIMEOUT_MS("An upper bound on the time to report success or failure", ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG),
