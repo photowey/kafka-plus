@@ -64,6 +64,31 @@ class ProducerServiceTest extends LocalTest {
         Assertions.assertNotNull(record);
     }
 
+
+    @Test
+    void testProducer_github_ci() {
+        this.tryCreateTopicIfNecessary();
+
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaProducer<String, String> producer = kafkaEngine.producerService().createProducer()
+                .boostrapServers(this.defaultBoostrapServers())
+                .keySerializer(StringSerializer.class)
+                .valueSerializer(StringSerializer.class)
+                .build()) {
+
+            ProducerRecord<String, String> record = kafkaEngine.producerService().createProducerRecord()
+                    .topic(this.defaultTopic())
+                    .key("key-9527")
+                    .value("value-9527")
+                    .build();
+
+            producer.send(record);
+        }
+
+        sleep(1_000L);
+    }
+
     //@Test
     void testProducer_serializer_instance() {
         StringSerializer keySerializer = new StringSerializer();

@@ -17,7 +17,10 @@ package io.github.photowey.kafka.plus.engine;
 
 import io.github.photowey.kafka.plus.core.enums.Kafka;
 import io.github.photowey.kafka.plus.engine.holder.KafkaEngineHolder;
+import org.apache.kafka.clients.admin.Admin;
+import org.apache.kafka.clients.admin.NewTopic;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -34,9 +37,13 @@ public abstract class LocalTest {
     public static final String DEFAULT_HELLO_WORLD_TOPIC = "io.github.photowey.topic.helloworld";
     public static final String DEFAULT_HELLO_WORLD_GROUP = "io.github.photowey.group.helloworld";
 
+    // ----------------------------------------------------------------
+
     public KafkaEngine kafkaEngine() {
         return KafkaEngineHolder.INSTANCE.kafkaEngine();
     }
+
+    // ----------------------------------------------------------------
 
     public String defaultTopic() {
         return DEFAULT_HELLO_WORLD_TOPIC;
@@ -49,6 +56,31 @@ public abstract class LocalTest {
     public String defaultBoostrapServers() {
         return DEFAULT_BOOTSTRAP_SERVERS;
     }
+
+    // ----------------------------------------------------------------
+
+    public void tryCreateTopicIfNecessary() {
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (Admin admin = kafkaEngine.adminService().createAdmin()
+                .boostrapServers(this.defaultBoostrapServers())
+                .checkConfigs(this::testBoostrapServers)
+                .build()) {
+
+            NewTopic topic = kafkaEngine.adminService().createTopic()
+                    .topic(this.defaultTopic())
+                    .numPartitions(1)
+                    .replicationFactor(1)
+                    .build();
+
+            try {
+                admin.createTopics(Collections.singleton(topic));
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    // ----------------------------------------------------------------
 
     public void testBoostrapServers(Map<String, Object> configs) {
         if (null == configs.get(Kafka.Bootstrap.Server.ADDRESS.value())) {

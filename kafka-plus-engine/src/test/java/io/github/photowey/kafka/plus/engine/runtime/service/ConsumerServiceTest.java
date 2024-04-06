@@ -59,6 +59,29 @@ class ConsumerServiceTest extends LocalTest {
         }
     }
 
+    @Test
+    void testConsumer_github_ci() {
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaConsumer<String, String> consumer = kafkaEngine.consumerService().createConsumer()
+                .boostrapServers(this.defaultBoostrapServers())
+                .keyDeserializer(StringDeserializer.class)
+                .valueDeserializer(StringDeserializer.class)
+                .autoOffsetReset(Kafka.Consumer.AutoOffsetReset.EARLIEST)
+                .groupId(this.defaultGroup())
+                .autoCommitEnabled(true)
+                .checkConfigs(super::testBoostrapServers)
+                .build()) {
+
+            consumer.subscribe(Collections.singletonList(this.defaultTopic()));
+
+            for (int i = 0; i < 4; i++) {
+                consumer.poll(Duration.ofMillis(100));
+                sleep(100L);
+            }
+        }
+    }
+
     //@Test
     void testConsumer_deserializer_class() {
         KafkaEngine kafkaEngine = this.kafkaEngine();
