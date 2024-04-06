@@ -16,6 +16,8 @@
 package io.github.photowey.kafka.plus.core.clients.builder.producer;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.Partitioner;
+import org.apache.kafka.clients.producer.ProducerInterceptor;
 import org.apache.kafka.common.serialization.Serializer;
 
 import java.util.Map;
@@ -56,6 +58,26 @@ public interface ProducerBuilder {
     ProducerBuilder props(Properties props);
 
     ProducerBuilder configs(Map<String, Object> configs);
+
+    // ----------------------------------------------------------------
+
+    ProducerBuilder enhanceProps(Consumer<Properties> fx);
+
+    ProducerBuilder enhanceConfigs(Consumer<Map<String, Object>> fx);
+
+    // ----------------------------------------------------------------
+
+    default <K, V, I extends ProducerInterceptor<K, V>> ProducerBuilder interceptor(Class<I> interceptor) {
+        return this.interceptor(interceptor.getName());
+    }
+
+    default <P extends Partitioner> ProducerBuilder partitioner(Class<P> partitioner) {
+        return this.partitioner(partitioner.getName());
+    }
+
+    ProducerBuilder interceptor(String interceptor);
+
+    ProducerBuilder partitioner(String partitioner);
 
     // ----------------------------------------------------------------
 

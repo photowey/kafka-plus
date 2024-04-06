@@ -13,9 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.photowey.kafka.plus.engine;
+package io.github.photowey.kafka.plus.engine.runtime.service;
 
 import io.github.photowey.kafka.plus.core.enums.Kafka;
+import io.github.photowey.kafka.plus.core.jackson.serialization.deserializer.JacksonDeserializer;
+import io.github.photowey.kafka.plus.engine.KafkaEngine;
+import io.github.photowey.kafka.plus.engine.LocalTest;
+import io.github.photowey.kafka.plus.engine.model.Person;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -55,7 +59,7 @@ class ConsumerServiceTest extends LocalTest {
         }
     }
 
-    @Test
+    //@Test
     void testConsumer_deserializer_class() {
         KafkaEngine kafkaEngine = this.kafkaEngine();
 
@@ -103,6 +107,34 @@ class ConsumerServiceTest extends LocalTest {
 
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
                 for (ConsumerRecord<String, String> record : records) {
+                    System.out.println("Key = " + record.key() + ", Value = " + record.value());
+                }
+
+                sleep(1_000L);
+            }
+        }
+    }
+
+    //@Test
+    void testConsumer_deserializer_custom_jackson() {
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaConsumer<String, Person> consumer = kafkaEngine.consumerService().createConsumer()
+                .boostrapServers(this.defaultBoostrapServers())
+                .keyDeserializer(StringDeserializer.class.getName())
+                .valueDeserializer(JacksonDeserializer.class.getName())
+                .autoOffsetReset(Kafka.Consumer.AutoOffsetReset.EARLIEST)
+                .groupId(this.defaultGroup())
+                .autoCommitEnabled(true)
+                .checkConfigs(super::testBoostrapServers)
+                .build()) {
+
+            consumer.subscribe(Collections.singletonList(this.defaultTopic()));
+
+            for (int i = 0; i < 15; i++) {
+
+                ConsumerRecords<String, Person> records = consumer.poll(Duration.ofMillis(100));
+                for (ConsumerRecord<String, Person> record : records) {
                     System.out.println("Key = " + record.key() + ", Value = " + record.value());
                 }
 

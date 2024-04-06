@@ -95,6 +95,44 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
     // ----------------------------------------------------------------
 
     @Override
+    public ProducerBuilder enhanceProps(Consumer<Properties> fx) {
+        if (null != super.props) {
+            fx.accept(super.props);
+        }
+
+        return this;
+    }
+
+    @Override
+    public ProducerBuilder enhanceConfigs(Consumer<Map<String, Object>> fx) {
+        if (null != super.configs) {
+            fx.accept(super.configs);
+        }
+
+        return this;
+    }
+
+    // ----------------------------------------------------------------
+
+    @Override
+    public ProducerBuilder interceptor(String interceptor) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.INTERCEPTOR.key(), interceptor);
+
+        return this;
+    }
+
+    @Override
+    public ProducerBuilder partitioner(String partitioner) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.PARTITIONER.key(), partitioner);
+
+        return this;
+    }
+
+    // ----------------------------------------------------------------
+
+    @Override
     public ProducerBuilder checkProps(Consumer<Properties> fx) {
         fx.accept(super.props);
 
