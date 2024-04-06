@@ -23,10 +23,13 @@
     <inceptionYear>2024</inceptionYear>
 
     <modules>
+        <module>kafka-plus-autoconfigure</module>
         <module>kafka-plus-core</module>
         <module>kafka-plus-engine</module>
         <module>kafka-plus-jackson</module>
         <module>kafka-plus-runtime</module>
+        <module>kafkaplus-spring-boot3-starter</module>
+        <module>kafkaplus-spring-boot-starter</module>
     </modules>
 
     <licenses>
@@ -74,6 +77,10 @@
         <kafka.version>3.7.0</kafka.version>
         <jackson.version>2.14.2</jackson.version>
 
+        <spring.version>5.3.23</spring.version>
+        <spring-boot.version>2.7.5</spring-boot.version>
+        <spring-boot-v3.version>3.2.4</spring-boot-v3.version>
+
         <io.github.photowey.project.url>https://github.com/photowey/kafka-plus</io.github.photowey.project.url>
     </properties>
     <!-- @formatter:on -->
@@ -89,6 +96,11 @@
                 <version>${kafka.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>io.github.photowey</groupId>
+                <artifactId>kafka-plus-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.github.photowey</groupId>
                 <artifactId>kafka-plus-core</artifactId>
@@ -110,12 +122,24 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!-- starter -->
+            <dependency>
+                <groupId>io.github.photowey</groupId>
+                <artifactId>kafkaplus-spring-boot3-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.photowey</groupId>
+                <artifactId>kafkaplus-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- jackson -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
