@@ -25,6 +25,7 @@
     <modules>
         <module>kafka-plus-core</module>
         <module>kafka-plus-engine</module>
+        <module>kafka-plus-jackson</module>
         <module>kafka-plus-runtime</module>
     </modules>
 
@@ -71,6 +72,7 @@
         <maven-git-commit-id-plugin.version>4.9.10</maven-git-commit-id-plugin.version>
 
         <kafka.version>3.7.0</kafka.version>
+        <jackson.version>2.14.2</jackson.version>
 
         <io.github.photowey.project.url>https://github.com/photowey/kafka-plus</io.github.photowey.project.url>
     </properties>
@@ -99,8 +101,25 @@
             </dependency>
             <dependency>
                 <groupId>io.github.photowey</groupId>
+                <artifactId>kafka-plus-jackson</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.photowey</groupId>
                 <artifactId>kafka-plus-runtime</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
