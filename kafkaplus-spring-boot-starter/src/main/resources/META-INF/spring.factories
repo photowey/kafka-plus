@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+io.github.photowey.kafka.plus.spring.boot.starter.config.KafkaPlusAutoConfigure

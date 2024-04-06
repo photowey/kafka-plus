@@ -80,7 +80,7 @@ public class ConsumerBuilderImpl extends AbstractBuilder implements ConsumerBuil
     }
 
     @Override
-    public ConsumerBuilder autoCommitEnabled(boolean enabled) {
+    public ConsumerBuilder autoCommit(boolean enabled) {
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Consumer.AUTO_COMMIT_ENABLED.key(), String.valueOf(enabled));
 

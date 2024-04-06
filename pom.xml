@@ -23,10 +23,13 @@
     <inceptionYear>2024</inceptionYear>
 
     <modules>
+        <module>kafka-plus-autoconfigure</module>
         <module>kafka-plus-core</module>
         <module>kafka-plus-engine</module>
         <module>kafka-plus-jackson</module>
         <module>kafka-plus-runtime</module>
+        <module>kafkaplus-spring-boot3-starter</module>
+        <module>kafkaplus-spring-boot-starter</module>
     </modules>
 
     <licenses>
@@ -59,7 +62,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven-license-plugin.version>3.0</maven-license-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 
@@ -67,12 +70,17 @@
         <maven-javadoc-plugin.version>2.9.1</maven-javadoc-plugin.version>
         <maven-gpg-plugin.version>1.5</maven-gpg-plugin.version>
         <maven-versions-plugin.version>2.7</maven-versions-plugin.version>
+        <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <central-publishing-maven-plugin.version>0.4.0</central-publishing-maven-plugin.version>
 
         <maven-git-commit-id-plugin.version>4.9.10</maven-git-commit-id-plugin.version>
 
         <kafka.version>3.7.0</kafka.version>
         <jackson.version>2.14.2</jackson.version>
+
+        <spring.version>5.3.23</spring.version>
+        <spring-boot.version>2.7.5</spring-boot.version>
+        <spring-boot-v3.version>3.2.4</spring-boot-v3.version>
 
         <io.github.photowey.project.url>https://github.com/photowey/kafka-plus</io.github.photowey.project.url>
     </properties>
@@ -89,6 +97,11 @@
                 <version>${kafka.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>io.github.photowey</groupId>
+                <artifactId>kafka-plus-autoconfigure</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>io.github.photowey</groupId>
                 <artifactId>kafka-plus-core</artifactId>
@@ -110,12 +123,24 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!-- starter -->
+            <dependency>
+                <groupId>io.github.photowey</groupId>
+                <artifactId>kafkaplus-spring-boot3-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.photowey</groupId>
+                <artifactId>kafkaplus-spring-boot-starter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <!-- jackson -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>com.fasterxml.jackson.datatype</groupId>
                 <artifactId>jackson-datatype-jsr310</artifactId>
@@ -160,24 +185,6 @@
                     <generateReleasePoms>false</generateReleasePoms>
                     <tagNameFormat>@{project.version}</tagNameFormat>
                     <arguments>-DskipTests</arguments>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>pl.project13.maven</groupId>
-                <artifactId>git-commit-id-plugin</artifactId>
-                <version>${git-commit-id-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>git</id>
-                        <goals>
-                            <goal>revision</goal>
-                        </goals>
-                        <phase>initialize</phase>
-                    </execution>
-                </executions>
-                <configuration>
-                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
-                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
                 </configuration>
             </plugin>
             <plugin>
@@ -251,6 +258,24 @@ limitations under the License.
             <id>release</id>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>pl.project13.maven</groupId>
+                        <artifactId>git-commit-id-plugin</artifactId>
+                        <version>${git-commit-id-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>git</id>
+                                <goals>
+                                    <goal>revision</goal>
+                                </goals>
+                                <phase>initialize</phase>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+                            <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                        </configuration>
+                    </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>

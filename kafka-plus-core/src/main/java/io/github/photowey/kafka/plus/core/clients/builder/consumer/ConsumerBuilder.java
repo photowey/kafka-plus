@@ -49,7 +49,7 @@ public interface ConsumerBuilder {
 
     ConsumerBuilder groupId(String groupId);
 
-    ConsumerBuilder autoCommitEnabled(boolean enabled);
+    ConsumerBuilder autoCommit(boolean enabled);
 
     // ----------------------------------------------------------------
 
