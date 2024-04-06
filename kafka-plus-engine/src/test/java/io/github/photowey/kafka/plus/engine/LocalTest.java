@@ -30,33 +30,33 @@ import java.util.concurrent.TimeUnit;
  */
 public abstract class LocalTest {
 
-    protected static final String DEFAULT_BOOTSTRAP_SERVERS = Kafka.Bootstrap.Server.DEFAULT_LOCALHOST.value();
-    protected static final String DEFAULT_HELLO_WORLD_TOPIC = "io.github.photowey.topic.helloworld";
-    protected static final String DEFAULT_HELLO_WORLD_GROUP = "io.github.photowey.group.helloworld";
+    public static final String DEFAULT_BOOTSTRAP_SERVERS = Kafka.Bootstrap.Server.DEFAULT_LOCALHOST.value();
+    public static final String DEFAULT_HELLO_WORLD_TOPIC = "io.github.photowey.topic.helloworld";
+    public static final String DEFAULT_HELLO_WORLD_GROUP = "io.github.photowey.group.helloworld";
 
-    protected KafkaEngine kafkaEngine() {
+    public KafkaEngine kafkaEngine() {
         return KafkaEngineHolder.INSTANCE.kafkaEngine();
     }
 
-    protected String defaultTopic() {
+    public String defaultTopic() {
         return DEFAULT_HELLO_WORLD_TOPIC;
     }
 
-    protected String defaultGroup() {
+    public String defaultGroup() {
         return DEFAULT_HELLO_WORLD_GROUP;
     }
 
-    protected String defaultBoostrapServers() {
+    public String defaultBoostrapServers() {
         return DEFAULT_BOOTSTRAP_SERVERS;
     }
 
-    protected void testBoostrapServers(Map<String, Object> configs) {
+    public void testBoostrapServers(Map<String, Object> configs) {
         if (null == configs.get(Kafka.Bootstrap.Server.ADDRESS.value())) {
             throw new RuntimeException("The bootstrap server address can't be none/empty");
         }
     }
 
-    protected static void sleep(long millis) {
+    public static void sleep(long millis) {
         try {
             TimeUnit.MILLISECONDS.sleep(millis);
         } catch (InterruptedException e) {

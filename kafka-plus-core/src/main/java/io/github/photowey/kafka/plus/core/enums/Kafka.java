@@ -47,8 +47,8 @@ public enum Kafka {
         public enum Server {
 
             ADDRESS(CommonClientConfigs.BOOTSTRAP_SERVERS_DOC, AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG),
-            DEFAULT_LOCALHOST("bootstrap.servers.default.localhost", "localhost:9092"),
-            DEFAULT_LOOPBACK("bootstrap.servers.default.loopback", "127.0.0.1:9092"),
+            DEFAULT_LOCALHOST("default.localhost.bootstrap.servers", "localhost:9092"),
+            DEFAULT_LOOPBACK("default.loopback.bootstrap.servers", "127.0.0.1:9092"),
 
             ;
 
@@ -131,6 +131,10 @@ public enum Kafka {
 
         KEY_SERIALIZER(ProducerConfig.KEY_SERIALIZER_CLASS_DOC, ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG),
         VALUE_DESERIALIZER(ProducerConfig.VALUE_SERIALIZER_CLASS_DOC, ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG),
+
+        INTERCEPTOR(ProducerConfig.INTERCEPTOR_CLASSES_DOC, ProducerConfig.INTERCEPTOR_CLASSES_CONFIG),
+
+        PARTITIONER("Determines which partition to send a record to when records are produced.", ProducerConfig.PARTITIONER_CLASS_CONFIG),
 
         ;
 

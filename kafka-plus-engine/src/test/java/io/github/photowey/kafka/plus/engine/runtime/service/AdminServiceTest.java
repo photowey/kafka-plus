@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.photowey.kafka.plus.engine;
+package io.github.photowey.kafka.plus.engine.runtime.service;
 
+import io.github.photowey.kafka.plus.engine.KafkaEngine;
+import io.github.photowey.kafka.plus.engine.LocalTest;
 import org.apache.kafka.clients.admin.Admin;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.DeleteTopicsResult;

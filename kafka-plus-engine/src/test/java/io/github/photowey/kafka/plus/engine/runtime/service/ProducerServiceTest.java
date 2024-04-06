@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.github.photowey.kafka.plus.engine;
+package io.github.photowey.kafka.plus.engine.runtime.service;
 
+import io.github.photowey.kafka.plus.core.jackson.serialization.serializer.JacksonSerializer;
+import io.github.photowey.kafka.plus.engine.KafkaEngine;
+import io.github.photowey.kafka.plus.engine.LocalTest;
+import io.github.photowey.kafka.plus.engine.model.Person;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -126,6 +130,30 @@ class ProducerServiceTest extends LocalTest {
                         .topic(this.defaultTopic())
                         .key("key-" + i)
                         .value("value-" + i)
+                        .build();
+
+                producer.send(record);
+            }
+        }
+
+        sleep(1_000L);
+    }
+
+    //@Test
+    void testProducer_serializer_custom_jackson() {
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaProducer<String, Person> producer = kafkaEngine.producerService().createProducer()
+                .boostrapServers(this.defaultBoostrapServers())
+                .keySerializer(StringSerializer.class.getName())
+                .valueSerializer(JacksonSerializer.class.getName())
+                .build()) {
+
+            for (int i = 0; i < 100; i++) {
+                ProducerRecord<String, Person> record = kafkaEngine.producerService().createProducerRecord()
+                        .topic(this.defaultTopic())
+                        .key("key-" + i)
+                        .value(new Person(Person.uuid(), "value-" + i))
                         .build();
 
                 producer.send(record);
