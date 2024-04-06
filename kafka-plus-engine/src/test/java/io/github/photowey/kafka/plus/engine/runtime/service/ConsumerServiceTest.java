@@ -49,11 +49,30 @@ class ConsumerServiceTest extends LocalTest {
                 .valueDeserializer(StringDeserializer.class)
                 .autoOffsetReset(Kafka.Consumer.AutoOffsetReset.EARLIEST)
                 .groupId(this.defaultGroup())
-                .autoCommitEnabled(true)
+                .autoCommit(true)
                 .checkConfigs(super::testBoostrapServers)
                 .build()) {
 
             consumer.subscribe(Collections.singletonList(this.defaultTopic()));
+
+            Assertions.assertNotNull(consumer);
+        }
+    }
+
+    @Test
+    void testConsumer_with_subscribe() {
+        KafkaEngine kafkaEngine = this.kafkaEngine();
+
+        try (KafkaConsumer<String, String> consumer = kafkaEngine.consumerService().createConsumer()
+                .boostrapServers(this.defaultBoostrapServers())
+                .keyDeserializer(StringDeserializer.class)
+                .valueDeserializer(StringDeserializer.class)
+                .autoOffsetReset(Kafka.Consumer.AutoOffsetReset.EARLIEST)
+                .groupId(this.defaultGroup())
+                .autoCommit(true)
+                .subscribe(this.defaultTopic())
+                .checkConfigs(super::testBoostrapServers)
+                .build()) {
 
             Assertions.assertNotNull(consumer);
         }
@@ -69,7 +88,7 @@ class ConsumerServiceTest extends LocalTest {
                 .valueDeserializer(StringDeserializer.class)
                 .autoOffsetReset(Kafka.Consumer.AutoOffsetReset.EARLIEST)
                 .groupId(this.defaultGroup())
-                .autoCommitEnabled(true)
+                .autoCommit(true)
                 .checkConfigs(super::testBoostrapServers)
                 .build()) {
 
@@ -92,7 +111,7 @@ class ConsumerServiceTest extends LocalTest {
                 .valueDeserializer(StringDeserializer.class)
                 .autoOffsetReset(Kafka.Consumer.AutoOffsetReset.EARLIEST)
                 .groupId(this.defaultGroup())
-                .autoCommitEnabled(true)
+                .autoCommit(true)
                 .checkConfigs(super::testBoostrapServers)
                 .build()) {
 
@@ -120,7 +139,7 @@ class ConsumerServiceTest extends LocalTest {
                 .valueDeserializer(StringDeserializer.class.getName())
                 .autoOffsetReset(Kafka.Consumer.AutoOffsetReset.EARLIEST)
                 .groupId(this.defaultGroup())
-                .autoCommitEnabled(true)
+                .autoCommit(true)
                 .checkConfigs(super::testBoostrapServers)
                 .build()) {
 
@@ -148,7 +167,7 @@ class ConsumerServiceTest extends LocalTest {
                 .valueDeserializer(JacksonDeserializer.class.getName())
                 .autoOffsetReset(Kafka.Consumer.AutoOffsetReset.EARLIEST)
                 .groupId(this.defaultGroup())
-                .autoCommitEnabled(true)
+                .autoCommit(true)
                 .checkConfigs(super::testBoostrapServers)
                 .build()) {
 

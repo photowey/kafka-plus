@@ -203,6 +203,16 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
     // ----------------------------------------------------------------
 
     @Override
+    public ProducerBuilder idempotence(boolean enabled) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.IDEMPOTENCE_ENABLED.key(), String.valueOf(enabled));
+
+        return this;
+    }
+
+    // ----------------------------------------------------------------
+
+    @Override
     public ProducerBuilder checkProps(Consumer<Properties> fx) {
         fx.accept(super.props);
 

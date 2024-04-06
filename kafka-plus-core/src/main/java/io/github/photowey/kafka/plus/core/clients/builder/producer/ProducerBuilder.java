@@ -113,6 +113,10 @@ public interface ProducerBuilder {
 
     // ----------------------------------------------------------------
 
+    ProducerBuilder idempotence(boolean enabled);
+
+    // ----------------------------------------------------------------
+
     ProducerBuilder checkProps(Consumer<Properties> fx);
 
     ProducerBuilder checkConfigs(Consumer<Map<String, Object>> fx);

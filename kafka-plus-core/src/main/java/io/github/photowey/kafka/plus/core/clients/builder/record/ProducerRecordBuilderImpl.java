@@ -99,6 +99,15 @@ public class ProducerRecordBuilderImpl extends AbstractBuilder implements Produc
     }
 
     private void checkKey() {
+        this.checkKeyNullable();
+        //this.checkKeyNutNull();
+    }
+
+    private void checkKeyNullable() {
+        // The key nullable.
+    }
+
+    private void checkKeyNutNull() {
         if (null == this.key) {
             throw new KafkaPlusRuntimeException("The key can't be null.");
         }

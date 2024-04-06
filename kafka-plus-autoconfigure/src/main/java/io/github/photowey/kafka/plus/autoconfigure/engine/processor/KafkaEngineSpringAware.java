@@ -25,5 +25,4 @@ import org.springframework.beans.factory.Aware;
  * @date 2024/04/06
  * @since 1.0.0
  */
-public interface KafkaEngineSpringAware extends KafkaEngineAware, Aware {
-}
+public interface KafkaEngineSpringAware extends KafkaEngineAware, Aware {}

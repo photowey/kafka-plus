@@ -146,6 +146,12 @@ public enum Kafka {
         REQUEST_TIMEOUT_MS(CommonClientConfigs.REQUEST_TIMEOUT_MS_DOC, ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG),
         DELIVERY_TIMEOUT_MS("An upper bound on the time to report success or failure", ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG),
 
+        /**
+         * @see Producer#ACKS (== -1)
+         * @see Producer#RETRIES (> 0)
+         */
+        IDEMPOTENCE_ENABLED(ProducerConfig.ENABLE_IDEMPOTENCE_DOC, ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG),
+
         ;
 
         private final String doc;
