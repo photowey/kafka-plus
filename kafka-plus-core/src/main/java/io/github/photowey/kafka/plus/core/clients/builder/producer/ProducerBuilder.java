@@ -15,6 +15,7 @@
  */
 package io.github.photowey.kafka.plus.core.clients.builder.producer;
 
+import io.github.photowey.kafka.plus.core.enums.Kafka;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.clients.producer.ProducerInterceptor;
@@ -22,6 +23,7 @@ import org.apache.kafka.common.serialization.Serializer;
 
 import java.util.Map;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
 /**
@@ -78,6 +80,34 @@ public interface ProducerBuilder {
     ProducerBuilder interceptor(String interceptor);
 
     ProducerBuilder partitioner(String partitioner);
+
+    // ----------------------------------------------------------------
+
+    ProducerBuilder acks(Kafka.Producer.Acks acks);
+
+    ProducerBuilder retries(long retries);
+
+    // ----------------------------------------------------------------
+
+    ProducerBuilder batchSize(long batchSize);
+
+    ProducerBuilder bufferMemorySize(long bufferMemorySize);
+
+    // ----------------------------------------------------------------
+
+    ProducerBuilder maxBlockMs(long millis);
+
+    ProducerBuilder requestTimeoutMs(long millis);
+
+    ProducerBuilder deliveryTimeoutMs(long millis);
+
+    default ProducerBuilder requestTimeoutMs(long timeout, TimeUnit unit) {
+        return this.requestTimeoutMs(unit.toMillis(timeout));
+    }
+
+    default ProducerBuilder deliveryTimeoutMs(long timeout, TimeUnit unit) {
+        return this.deliveryTimeoutMs(unit.toMillis(timeout));
+    }
 
     // ----------------------------------------------------------------
 

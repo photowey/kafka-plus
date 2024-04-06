@@ -133,6 +133,68 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
     // ----------------------------------------------------------------
 
     @Override
+    public ProducerBuilder acks(Kafka.Producer.Acks acks) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.ACKS.key(), acks.value());
+
+        return this;
+    }
+
+    @Override
+    public ProducerBuilder retries(long retries) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.RETRIES.key(), retries);
+
+        return this;
+    }
+
+    // ----------------------------------------------------------------
+
+    @Override
+    public ProducerBuilder batchSize(long batchSize) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.BATCH_SIZE.key(), batchSize);
+
+        return this;
+    }
+
+    @Override
+    public ProducerBuilder bufferMemorySize(long bufferMemorySize) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.BUFFER_MEMORY_SIZE.key(), bufferMemorySize);
+
+        return this;
+    }
+
+    // ----------------------------------------------------------------
+
+    @Override
+    public ProducerBuilder maxBlockMs(long millis) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.MAX_BLOCK_MS.key(), millis);
+
+        return this;
+    }
+
+    @Override
+    public ProducerBuilder requestTimeoutMs(long millis) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.REQUEST_TIMEOUT_MS.key(), millis);
+
+        return this;
+    }
+
+    @Override
+    public ProducerBuilder deliveryTimeoutMs(long millis) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Producer.DELIVERY_TIMEOUT_MS.key(), millis);
+
+        return this;
+    }
+
+    // ----------------------------------------------------------------
+
+    @Override
     public ProducerBuilder checkProps(Consumer<Properties> fx) {
         fx.accept(super.props);
 

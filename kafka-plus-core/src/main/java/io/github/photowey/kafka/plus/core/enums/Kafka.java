@@ -52,8 +52,8 @@ public enum Kafka {
 
             ;
 
-            private String doc;
-            private String value;
+            private final String doc;
+            private final String value;
 
             Server(String doc, String value) {
                 this.doc = doc;
@@ -82,8 +82,8 @@ public enum Kafka {
 
         ;
 
-        private String doc;
-        private String key;
+        private final String doc;
+        private final String key;
 
         Consumer(String doc, String key) {
             this.doc = doc;
@@ -109,8 +109,8 @@ public enum Kafka {
 
             ;
 
-            private String doc;
-            private String value;
+            private final String doc;
+            private final String value;
 
             AutoOffsetReset(String doc, String value) {
                 this.doc = doc;
@@ -133,13 +133,22 @@ public enum Kafka {
         VALUE_DESERIALIZER(ProducerConfig.VALUE_SERIALIZER_CLASS_DOC, ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG),
 
         INTERCEPTOR(ProducerConfig.INTERCEPTOR_CLASSES_DOC, ProducerConfig.INTERCEPTOR_CLASSES_CONFIG),
-
         PARTITIONER("Determines which partition to send a record to when records are produced.", ProducerConfig.PARTITIONER_CLASS_CONFIG),
+
+        ACKS("The number of acknowledgments the producer requires the leader to have received before considering a request complete.", ProducerConfig.ACKS_CONFIG),
+        RETRIES("Setting a value greater than zero will cause the client to resend any record whose send fails with a potentially transient error.", ProducerConfig.RETRIES_CONFIG),
+
+        BATCH_SIZE("The producer will attempt to batch records together into fewer requests whenever multiple records are being sent to the same partition.", ProducerConfig.BATCH_SIZE_CONFIG),
+        BUFFER_MEMORY_SIZE("The total bytes of memory the producer can use to buffer records waiting to be sent to the server.", ProducerConfig.BUFFER_MEMORY_CONFIG),
+
+        MAX_BLOCK_MS("The configuration controls how long the KafkaProducer send()/... methods will block.", ProducerConfig.MAX_BLOCK_MS_CONFIG),
+        REQUEST_TIMEOUT_MS(CommonClientConfigs.REQUEST_TIMEOUT_MS_DOC, ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG),
+        DELIVERY_TIMEOUT_MS("An upper bound on the time to report success or failure", ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG),
 
         ;
 
-        private String doc;
-        private String key;
+        private final String doc;
+        private final String key;
 
         Producer(String doc, String key) {
             this.doc = doc;
@@ -152,6 +161,31 @@ public enum Kafka {
 
         public String key() {
             return this.key;
+        }
+
+        public enum Acks {
+
+            IGNORE("If set to zero then the producer will not wait for any acknowledgment from the server at all", "0"),
+            LEADER("This will mean the leader will write the record to its local log but will respond without awaiting full acknowledgement from all followers", "1"),
+            ALL("This means the leader will wait for the full set of in-sync replicas to acknowledge the record.", "-1"),
+
+            ;
+
+            private final String doc;
+            private final String value;
+
+            Acks(String doc, String value) {
+                this.doc = doc;
+                this.value = value;
+            }
+
+            public String doc() {
+                return this.doc;
+            }
+
+            public String value() {
+                return this.value;
+            }
         }
     }
 
