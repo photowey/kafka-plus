@@ -34,8 +34,8 @@ import java.util.Collections;
  * {@code ConsumerServiceTest}
  *
  * @author photowey
- * @date 2024/04/05
- * @since 1.0.0
+ * @since 2024/04/05
+ * @version 1.0.0
  */
 class ConsumerServiceTest extends LocalTest {
 

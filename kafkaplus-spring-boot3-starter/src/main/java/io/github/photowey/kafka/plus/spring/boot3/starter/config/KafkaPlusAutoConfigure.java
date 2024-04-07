@@ -27,8 +27,8 @@ import org.springframework.core.env.Environment;
  * {@code KafkaPlusAutoConfigure}
  *
  * @author photowey
- * @date 2024/04/06
- * @since 1.0.0
+ * @since 2024/04/06
+ * @version 1.0.0
  */
 @Import(value = {
         KafkaPlusConfigure.class,

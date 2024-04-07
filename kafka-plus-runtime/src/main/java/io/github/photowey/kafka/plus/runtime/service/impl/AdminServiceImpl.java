@@ -25,8 +25,8 @@ import io.github.photowey.kafka.plus.runtime.service.AdminService;
  * {@code AdminServiceImpl}
  *
  * @author photowey
- * @date 2024/04/05
- * @since 1.0.0
+ * @since 2024/04/05
+ * @version 1.0.0
  */
 public class AdminServiceImpl implements AdminService {
 

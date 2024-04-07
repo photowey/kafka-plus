@@ -24,8 +24,8 @@ import org.apache.kafka.common.header.Header;
  * {@code ProducerRecordBuilderImpl}
  *
  * @author photowey
- * @date 2024/04/06
- * @since 1.0.0
+ * @since 2024/04/06
+ * @version 1.0.0
  */
 public class ProducerRecordBuilderImpl extends AbstractBuilder implements ProducerRecordBuilder {
 
