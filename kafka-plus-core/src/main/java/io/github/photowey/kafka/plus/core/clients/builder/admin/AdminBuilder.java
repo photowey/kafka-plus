@@ -30,15 +30,50 @@ import java.util.function.Consumer;
  */
 public interface AdminBuilder {
 
+    /**
+     * The {@code bootstrap.servers}.
+     *
+     * @param bootstrapServers the bootstrap.servers
+     * @return {@link  AdminBuilder}
+     */
     AdminBuilder boostrapServers(String bootstrapServers);
 
+    /**
+     * The custom property configs.
+     *
+     * @param props the custom property configs.
+     * @return {@link AdminBuilder}
+     */
     AdminBuilder props(Properties props);
 
-    AdminBuilder configs(Map<String, Object> configMap);
+    /**
+     * The custom configs.
+     *
+     * @param configs the custom configs.
+     * @return {@link AdminBuilder}
+     */
+    AdminBuilder configs(Map<String, Object> configs);
 
+    /**
+     * Check custom property configs.
+     *
+     * @param fx the callback.
+     * @return {@link AdminBuilder}
+     */
     AdminBuilder checkProps(Consumer<Properties> fx);
 
+    /**
+     * Check custom configs.
+     *
+     * @param fx the callback.
+     * @return {@link AdminBuilder}
+     */
     AdminBuilder checkConfigs(Consumer<Map<String, Object>> fx);
 
+    /**
+     * Build {@link Admin} instance.
+     *
+     * @return {@link Admin}
+     */
     Admin build();
 }

@@ -31,51 +31,160 @@ import java.util.function.Consumer;
  */
 public interface ConsumerBuilder {
 
+    /**
+     * The {@code bootstrap.servers}.
+     *
+     * @param bootstrapServers the bootstrap.servers
+     * @return {@link  ConsumerBuilder}
+     */
     ConsumerBuilder boostrapServers(String bootstrapServers);
 
+    /**
+     * The key deserializer.
+     *
+     * @param keyDeserializer the key deserializer Class.
+     * @param <K>             the key type.
+     * @return {@link ConsumerBuilder}
+     */
     default <K> ConsumerBuilder keyDeserializer(Class<K> keyDeserializer) {
         return this.keyDeserializer(keyDeserializer.getName());
     }
 
+    /**
+     * The value deserializer.
+     *
+     * @param valueDeserializer the value deserializer Class.
+     * @param <V>               the value type.
+     * @return {@link ConsumerBuilder}
+     */
     default <V> ConsumerBuilder valueDeserializer(Class<V> valueDeserializer) {
         return this.valueDeserializer(valueDeserializer.getName());
     }
 
+    /**
+     * The key deserializer.
+     *
+     * @param keyDeserializer the key deserializer.
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder keyDeserializer(String keyDeserializer);
 
+    /**
+     * The value deserializer.
+     *
+     * @param valueDeserializer the value deserializer.
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder valueDeserializer(String valueDeserializer);
 
+    /**
+     * The {@code auto.offset.reset}.
+     *
+     * @param offsetReset the {@code auto.offset.reset}
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder autoOffsetReset(Kafka.Consumer.AutoOffsetReset offsetReset);
 
+    /**
+     * The {@code group.id}.
+     *
+     * @param groupId the {@code group.id}
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder groupId(String groupId);
 
+    /**
+     * The {@code enable.auto.commit}.
+     *
+     * @param enabled the {@code enable.auto.commit}
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder autoCommit(boolean enabled);
 
     // ----------------------------------------------------------------
 
+    /**
+     * The key deserializer.
+     *
+     * @param keyDeserializer the key deserializer.
+     * @param <K>             the key type.
+     * @return {@link ConsumerBuilder}
+     */
     <K> ConsumerBuilder keyDeserializer(Deserializer<K> keyDeserializer);
 
+    /**
+     * The value deserializer.
+     *
+     * @param valueDeserializer the value deserializer.
+     * @param <V>               the value type.
+     * @return {@link ConsumerBuilder}
+     */
     <V> ConsumerBuilder valueDeserializer(Deserializer<V> valueDeserializer);
 
     // ----------------------------------------------------------------
+
+    /**
+     * The custom property configs.
+     *
+     * @param props the custom property configs.
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder props(Properties props);
 
+    /**
+     * The custom configs.
+     *
+     * @param configs the custom configs.
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder configs(Map<String, Object> configs);
 
     // ----------------------------------------------------------------
 
+    /**
+     * Check custom property configs.
+     *
+     * @param fx the callback.
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder checkProps(Consumer<Properties> fx);
 
+    /**
+     * Check custom configs.
+     *
+     * @param fx the callback.
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder checkConfigs(Consumer<Map<String, Object>> fx);
 
     // ----------------------------------------------------------------
+
+    /**
+     * The topics of the consumer subscribe.
+     *
+     * @param topics the topic names.
+     * @return {@link ConsumerBuilder}
+     */
     default ConsumerBuilder subscribe(String... topics) {
         return this.subscribe(new HashSet<>(Arrays.asList(topics)));
     }
 
+    /**
+     * The topics of the consumer subscribe.
+     *
+     * @param topics the topic names.
+     * @return {@link ConsumerBuilder}
+     */
     ConsumerBuilder subscribe(Collection<String> topics);
 
     // ----------------------------------------------------------------
 
+    /**
+     * Build {@link KafkaConsumer} instance.
+     *
+     * @param <K> the key type.
+     * @param <V> the value type.
+     * @return {@link KafkaConsumer}
+     */
     <K, V> KafkaConsumer<K, V> build();
 }
