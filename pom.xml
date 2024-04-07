@@ -13,7 +13,7 @@
     <groupId>io.github.photowey</groupId>
     <artifactId>kafka-plus</artifactId>
     <!-- ${kafka.version}.x.y -->
-    <version>3.7.0.1.0</version>
+    <version>3.7.0.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
