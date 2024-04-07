@@ -16,8 +16,12 @@
 package io.github.photowey.kafka.plus.spring.boot.starter.config;
 
 import io.github.photowey.kafka.plus.autoconfigure.KafkaPlusConfigure;
+import io.github.photowey.kafka.plus.autoconfigure.core.property.KafkaPlusProperties;
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.env.Environment;
 
 /**
  * {@code KafkaPlusAutoConfigure}
@@ -28,7 +32,23 @@ import org.springframework.context.annotation.Import;
  */
 @Import(value = {
         KafkaPlusConfigure.class,
+        KafkaPlusAutoConfigure.PropertyConfigure.class,
 })
 @Configuration
 public class KafkaPlusAutoConfigure {
+
+    @Configuration
+    static class PropertyConfigure {
+
+        @Bean
+        public KafkaPlusProperties kafkaPlusProperties(Environment environment) {
+            return bind(environment, KafkaPlusProperties.getPrefix(), KafkaPlusProperties.class);
+        }
+    }
+
+    static <T> T bind(Environment environment, String prefix, Class<T> clazz) {
+        Binder binder = Binder.get(environment);
+
+        return binder.bind(prefix, clazz).get();
+    }
 }
