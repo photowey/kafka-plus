@@ -364,3 +364,13 @@ public interface BeanFactoryGetter {
 
 ```
 
+
+
+## 4.`Next`
+
+### 4.1.`Autoconfigure`
+
+```java
+// Autoconfigure KafkaProducer<K,V>
+```
+

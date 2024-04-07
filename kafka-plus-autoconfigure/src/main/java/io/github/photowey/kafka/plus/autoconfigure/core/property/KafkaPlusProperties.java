@@ -32,7 +32,15 @@ import java.util.Map;
  */
 public class KafkaPlusProperties implements Serializable {
 
+    public static final String SPRING_KAFKA_PLUS_PROPERTY_PREFIX = "spring.kafkaplus";
+
     private static final long serialVersionUID = 8550578442514111961L;
+
+    // ----------------------------------------------------------------
+
+    public static String getPrefix() {
+        return SPRING_KAFKA_PLUS_PROPERTY_PREFIX;
+    }
 
     // ----------------------------------------------------------------
 
@@ -50,9 +58,19 @@ public class KafkaPlusProperties implements Serializable {
 
         private Kafka.Mode mode = Kafka.Mode.STANDALONE;
 
+        // ----------------------------------------------------------------
+
         public Kafka.Mode getMode() {
             return mode;
         }
+
+        // ----------------------------------------------------------------
+
+        public Kafka.Mode mode() {
+            return mode;
+        }
+
+        // ----------------------------------------------------------------
 
         public void setMode(Kafka.Mode mode) {
             this.mode = mode;
@@ -65,9 +83,19 @@ public class KafkaPlusProperties implements Serializable {
 
         private String servers = "localhost:9092";
 
+        // ----------------------------------------------------------------
+
         public String getServers() {
             return servers;
         }
+
+        // ----------------------------------------------------------------
+
+        public String servers() {
+            return servers;
+        }
+
+        // ----------------------------------------------------------------
 
         public void setServers(String servers) {
             this.servers = servers;
@@ -88,32 +116,54 @@ public class KafkaPlusProperties implements Serializable {
 
             private Map<Integer, List<Integer>> replicasAssignments;
 
+            // ----------------------------------------------------------------
+
             public String getTopic() {
                 return topic;
-            }
-
-            public void setTopic(String topic) {
-                this.topic = topic;
             }
 
             public int getNumPartitions() {
                 return numPartitions;
             }
 
-            public void setNumPartitions(int numPartitions) {
-                this.numPartitions = numPartitions;
-            }
-
             public int getReplicationFactor() {
                 return replicationFactor;
             }
 
-            public void setReplicationFactor(int replicationFactor) {
-                this.replicationFactor = replicationFactor;
-            }
-
             public Map<Integer, List<Integer>> getReplicasAssignments() {
                 return replicasAssignments;
+            }
+
+            // ----------------------------------------------------------------
+
+            public String topic() {
+                return topic;
+            }
+
+            public int numPartitions() {
+                return numPartitions;
+            }
+
+            public int replicationFactor() {
+                return replicationFactor;
+            }
+
+            public Map<Integer, List<Integer>> replicasAssignments() {
+                return replicasAssignments;
+            }
+
+            // ----------------------------------------------------------------
+
+            public void setTopic(String topic) {
+                this.topic = topic;
+            }
+
+            public void setNumPartitions(int numPartitions) {
+                this.numPartitions = numPartitions;
+            }
+
+            public void setReplicationFactor(int replicationFactor) {
+                this.replicationFactor = replicationFactor;
             }
 
             public void setReplicasAssignments(Map<Integer, List<Integer>> replicasAssignments) {
@@ -121,9 +171,19 @@ public class KafkaPlusProperties implements Serializable {
             }
         }
 
+        // ----------------------------------------------------------------
+
         public List<Topic> getTopics() {
             return topics;
         }
+
+        // ----------------------------------------------------------------
+
+        public List<Topic> topics() {
+            return topics;
+        }
+
+        // ----------------------------------------------------------------
 
         public void setTopics(List<Topic> topics) {
             this.topics = topics;
@@ -148,48 +208,78 @@ public class KafkaPlusProperties implements Serializable {
          */
         private String subscribes;
 
+        // ----------------------------------------------------------------
+
         public String getKeyDeserializer() {
             return keyDeserializer;
-        }
-
-        public void setKeyDeserializer(String keyDeserializer) {
-            this.keyDeserializer = keyDeserializer;
         }
 
         public String getValueDeserializer() {
             return valueDeserializer;
         }
 
-        public void setValueDeserializer(String valueDeserializer) {
-            this.valueDeserializer = valueDeserializer;
-        }
-
         public Kafka.Consumer.AutoOffsetReset getAutoOffsetReset() {
             return autoOffsetReset;
-        }
-
-        public void setAutoOffsetReset(Kafka.Consumer.AutoOffsetReset autoOffsetReset) {
-            this.autoOffsetReset = autoOffsetReset;
         }
 
         public String getGroupId() {
             return groupId;
         }
 
-        public void setGroupId(String groupId) {
-            this.groupId = groupId;
-        }
-
         public Boolean getAutoCommit() {
             return autoCommit;
         }
 
-        public void setAutoCommit(Boolean autoCommit) {
-            this.autoCommit = autoCommit;
-        }
-
         public String getSubscribes() {
             return subscribes;
+        }
+
+        // ----------------------------------------------------------------
+
+        public String keyDeserializer() {
+            return keyDeserializer;
+        }
+
+        public String valueDeserializer() {
+            return valueDeserializer;
+        }
+
+        public Kafka.Consumer.AutoOffsetReset autoOffsetReset() {
+            return autoOffsetReset;
+        }
+
+        public String groupId() {
+            return groupId;
+        }
+
+        public Boolean autoCommit() {
+            return autoCommit;
+        }
+
+        public String subscribes() {
+            return subscribes;
+        }
+
+        // ----------------------------------------------------------------
+
+        public void setKeyDeserializer(String keyDeserializer) {
+            this.keyDeserializer = keyDeserializer;
+        }
+
+        public void setValueDeserializer(String valueDeserializer) {
+            this.valueDeserializer = valueDeserializer;
+        }
+
+        public void setAutoOffsetReset(Kafka.Consumer.AutoOffsetReset autoOffsetReset) {
+            this.autoOffsetReset = autoOffsetReset;
+        }
+
+        public void setGroupId(String groupId) {
+            this.groupId = groupId;
+        }
+
+        public void setAutoCommit(Boolean autoCommit) {
+            this.autoCommit = autoCommit;
         }
 
         public void setSubscribes(String subscribes) {
@@ -220,104 +310,162 @@ public class KafkaPlusProperties implements Serializable {
 
         private Boolean idempotence;
 
+        // ----------------------------------------------------------------
+
         public String getKeySerializer() {
             return keySerializer;
-        }
-
-        public void setKeySerializer(String keySerializer) {
-            this.keySerializer = keySerializer;
         }
 
         public String getValueSerializer() {
             return valueSerializer;
         }
 
-        public void setValueSerializer(String valueSerializer) {
-            this.valueSerializer = valueSerializer;
-        }
-
         public String getInterceptor() {
             return interceptor;
-        }
-
-        public void setInterceptor(String interceptor) {
-            this.interceptor = interceptor;
         }
 
         public String getPartitioner() {
             return partitioner;
         }
 
-        public void setPartitioner(String partitioner) {
-            this.partitioner = partitioner;
-        }
-
         public Kafka.Producer.Acks getAcks() {
             return acks;
-        }
-
-        public void setAcks(Kafka.Producer.Acks acks) {
-            this.acks = acks;
         }
 
         public Long getRetries() {
             return retries;
         }
 
-        public void setRetries(Long retries) {
-            this.retries = retries;
-        }
-
         public Long getBatchSize() {
             return batchSize;
-        }
-
-        public void setBatchSize(Long batchSize) {
-            this.batchSize = batchSize;
         }
 
         public Long getBufferMemorySize() {
             return bufferMemorySize;
         }
 
-        public void setBufferMemorySize(Long bufferMemorySize) {
-            this.bufferMemorySize = bufferMemorySize;
-        }
-
         public Long getLingerMs() {
             return lingerMs;
-        }
-
-        public void setLingerMs(Long lingerMs) {
-            this.lingerMs = lingerMs;
         }
 
         public Long getMaxBlockMs() {
             return maxBlockMs;
         }
 
-        public void setMaxBlockMs(Long maxBlockMs) {
-            this.maxBlockMs = maxBlockMs;
-        }
-
         public Long getRequestTimeoutMs() {
             return requestTimeoutMs;
-        }
-
-        public void setRequestTimeoutMs(Long requestTimeoutMs) {
-            this.requestTimeoutMs = requestTimeoutMs;
         }
 
         public Long getDeliveryTimeoutMs() {
             return deliveryTimeoutMs;
         }
 
-        public void setDeliveryTimeoutMs(Long deliveryTimeoutMs) {
-            this.deliveryTimeoutMs = deliveryTimeoutMs;
-        }
-
         public Boolean getIdempotence() {
             return idempotence;
+        }
+
+        // ----------------------------------------------------------------
+
+        public String keySerializer() {
+            return keySerializer;
+        }
+
+        public String valueSerializer() {
+            return valueSerializer;
+        }
+
+        public String interceptor() {
+            return interceptor;
+        }
+
+        public String partitioner() {
+            return partitioner;
+        }
+
+        public Kafka.Producer.Acks acks() {
+            return acks;
+        }
+
+        public Long retries() {
+            return retries;
+        }
+
+        public Long batchSize() {
+            return batchSize;
+        }
+
+        public Long bufferMemorySize() {
+            return bufferMemorySize;
+        }
+
+        public Long lingerMs() {
+            return lingerMs;
+        }
+
+        public Long maxBlockMs() {
+            return maxBlockMs;
+        }
+
+        public Long requestTimeoutMs() {
+            return requestTimeoutMs;
+        }
+
+        public Long deliveryTimeoutMs() {
+            return deliveryTimeoutMs;
+        }
+
+        public Boolean idempotence() {
+            return idempotence;
+        }
+
+        // ----------------------------------------------------------------
+
+        public void setKeySerializer(String keySerializer) {
+            this.keySerializer = keySerializer;
+        }
+
+        public void setValueSerializer(String valueSerializer) {
+            this.valueSerializer = valueSerializer;
+        }
+
+        public void setInterceptor(String interceptor) {
+            this.interceptor = interceptor;
+        }
+
+        public void setPartitioner(String partitioner) {
+            this.partitioner = partitioner;
+        }
+
+        public void setAcks(Kafka.Producer.Acks acks) {
+            this.acks = acks;
+        }
+
+        public void setRetries(Long retries) {
+            this.retries = retries;
+        }
+
+        public void setBatchSize(Long batchSize) {
+            this.batchSize = batchSize;
+        }
+
+        public void setBufferMemorySize(Long bufferMemorySize) {
+            this.bufferMemorySize = bufferMemorySize;
+        }
+
+        public void setLingerMs(Long lingerMs) {
+            this.lingerMs = lingerMs;
+        }
+
+        public void setMaxBlockMs(Long maxBlockMs) {
+            this.maxBlockMs = maxBlockMs;
+        }
+
+        public void setRequestTimeoutMs(Long requestTimeoutMs) {
+            this.requestTimeoutMs = requestTimeoutMs;
+        }
+
+        public void setDeliveryTimeoutMs(Long deliveryTimeoutMs) {
+            this.deliveryTimeoutMs = deliveryTimeoutMs;
         }
 
         public void setIdempotence(Boolean idempotence) {
@@ -331,36 +479,60 @@ public class KafkaPlusProperties implements Serializable {
         return mode;
     }
 
-    public void setMode(Mode mode) {
-        this.mode = mode;
-    }
-
     public Bootstrap getBootstrap() {
         return bootstrap;
-    }
-
-    public void setBootstrap(Bootstrap bootstrap) {
-        this.bootstrap = bootstrap;
     }
 
     public Admin getAdmin() {
         return admin;
     }
 
-    public void setAdmin(Admin admin) {
-        this.admin = admin;
-    }
-
     public Consumer getConsumer() {
         return consumer;
     }
 
-    public void setConsumer(Consumer consumer) {
-        this.consumer = consumer;
-    }
-
     public Producer getProducer() {
         return producer;
+    }
+
+    // ----------------------------------------------------------------
+
+    public Mode mode() {
+        return mode;
+    }
+
+    public Bootstrap getbootstrapBootstrap() {
+        return bootstrap;
+    }
+
+    public Admin admin() {
+        return admin;
+    }
+
+    public Consumer consumer() {
+        return consumer;
+    }
+
+    public Producer producer() {
+        return producer;
+    }
+
+    // ----------------------------------------------------------------
+
+    public void setMode(Mode mode) {
+        this.mode = mode;
+    }
+
+    public void setBootstrap(Bootstrap bootstrap) {
+        this.bootstrap = bootstrap;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+    public void setConsumer(Consumer consumer) {
+        this.consumer = consumer;
     }
 
     public void setProducer(Producer producer) {
