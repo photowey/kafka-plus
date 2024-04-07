@@ -29,15 +29,50 @@ import java.util.Map;
  */
 public interface NewTopicBuilder {
 
+    /**
+     * The topic name.
+     *
+     * @param topic the topic name
+     * @return {@link NewTopicBuilder}
+     */
     NewTopicBuilder topic(String topic);
 
+    /**
+     * The numPartitions.
+     *
+     * @param numPartitions the num of partitions.
+     * @return {@link NewTopicBuilder}
+     */
     NewTopicBuilder numPartitions(Integer numPartitions);
 
+    /**
+     * The replicationFactor.
+     *
+     * @param replicationFactor the replication factor.
+     * @return {@link NewTopicBuilder}
+     */
     NewTopicBuilder replicationFactor(Integer replicationFactor);
 
+    /**
+     * The replicasAssignments.
+     *
+     * @param replicasAssignments the replicas assignments.
+     * @return {@link NewTopicBuilder}
+     */
     NewTopicBuilder replicasAssignments(Map<Integer, List<Integer>> replicasAssignments);
 
+    /**
+     * The custom configs.
+     *
+     * @param configs the custom configs.
+     * @return {@link NewTopicBuilder}
+     */
     NewTopicBuilder configs(Map<String, String> configs);
 
+    /**
+     * Build {@link NewTopic} instance.
+     *
+     * @return {@link NewTopic}
+     */
     NewTopic build();
 }

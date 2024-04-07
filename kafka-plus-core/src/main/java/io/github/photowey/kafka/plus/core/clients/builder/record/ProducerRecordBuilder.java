@@ -27,17 +27,62 @@ import org.apache.kafka.common.header.Header;
  */
 public interface ProducerRecordBuilder {
 
+    /**
+     * The topic name.
+     *
+     * @param topic the topic name.
+     * @return {@link ProducerRecordBuilder}
+     */
     ProducerRecordBuilder topic(String topic);
 
+    /**
+     * The partition number.
+     *
+     * @param partition the partition number.
+     * @return {@link ProducerRecordBuilder}
+     */
     ProducerRecordBuilder partition(Integer partition);
 
+    /**
+     * The headers.
+     *
+     * @param headers the headers.
+     * @return {@link ProducerRecordBuilder}
+     */
     ProducerRecordBuilder headers(Iterable<Header> headers);
 
+    /**
+     * The key.
+     *
+     * @param key the record key.
+     * @param <K> the key type.
+     * @return {@link ProducerRecordBuilder}
+     */
     <K> ProducerRecordBuilder key(K key);
 
+    /**
+     * The value.
+     *
+     * @param value the record value.
+     * @param <V>   the value type.
+     * @return {@link ProducerRecordBuilder}
+     */
     <V> ProducerRecordBuilder value(V value);
 
+    /**
+     * The timestamp.
+     *
+     * @param timestamp the timestamp.
+     * @return {@link ProducerRecordBuilder}
+     */
     ProducerRecordBuilder timestamp(Long timestamp);
 
+    /**
+     * Build {@link ProducerRecord} instance.
+     *
+     * @param <K> the key type.
+     * @param <V> the value type.
+     * @return {@link ProducerRecord}
+     */
     <K, V> ProducerRecord<K, V> build();
 }

@@ -31,15 +31,15 @@ import java.util.function.Consumer;
  * Properties props = new Properties();
  * Admin admin = new AdminBuilderImpl()
  *    .props(props)
- *    .checkProps((x) -> {})
+ *    .checkProps(x -&gt; {})
  *    .build();
  * </pre>
  *
  * <pre>
- * Map<String, Object> configMap = new HashMap<>();
+ * Map&lt;String, Object&gt; configMap = new HashMap&lt;&gt;();
  * Admin admin = new AdminBuilderImpl()
  *    .configMap(configMap)
- *    .checkMap((x) -> {})
+ *    .checkConfigs(x -&gt; {})
  *    .build();
  * </pre>
  *
@@ -47,7 +47,6 @@ import java.util.function.Consumer;
  * String bootstrapServers = "localhost:9092";
  * Admin admin = new AdminBuilderImpl()
  *    .boostrapServers(bootstrapServers)
- *    .checkMap((x) -> {})
  *    .build();
  * </pre>
  *

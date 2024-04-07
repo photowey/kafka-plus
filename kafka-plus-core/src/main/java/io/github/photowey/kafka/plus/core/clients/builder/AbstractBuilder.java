@@ -30,7 +30,14 @@ import java.util.Properties;
  */
 public abstract class AbstractBuilder {
 
+    /**
+     * The custom configs.
+     */
     protected Map<String, Object> configs;
+
+    /**
+     * The custom {@link Properties} configs.
+     */
     protected Properties props;
 
     protected void initConfigsIfNecessary() {

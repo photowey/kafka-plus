@@ -33,7 +33,7 @@ public interface KafkaEngine extends Engine {
      * <pre>
      * try (Admin admin = KafkaEngineHolder.INSTANCE.kafkaEngine().adminService().createAdmin()
      *        .boostrapServers("localhost:9092")
-     *        .checkMap((x) -> {})
+     *        .checkMap((x) -&gt; {})
      *        .create()) {
      *    // do something.
      * }
