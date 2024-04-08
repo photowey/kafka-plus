@@ -24,8 +24,8 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
  * {@code AbstractEngineAwareBeanPostProcessor}
  *
  * @author photowey
- * @date 2024/04/06
- * @since 1.0.0
+ * @since 2024/04/06
+ * @version 1.0.0
  */
 public abstract class AbstractEngineAwareBeanPostProcessor<E extends Engine, A extends Aware> implements EngineBeanPostProcessor {
 

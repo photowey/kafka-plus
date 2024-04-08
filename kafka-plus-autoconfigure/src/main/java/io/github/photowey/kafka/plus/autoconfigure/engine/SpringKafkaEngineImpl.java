@@ -31,8 +31,8 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
  * {@code SpringKafkaEngineImpl}
  *
  * @author photowey
- * @date 2024/04/06
- * @since 1.0.0
+ * @since 2024/04/06
+ * @version 1.0.0
  */
 public class SpringKafkaEngineImpl implements KafkaEngine, BeanFactoryAware, BeanFactoryGetter, SmartInitializingSingleton {
 

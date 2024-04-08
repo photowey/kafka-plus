@@ -24,8 +24,8 @@ import org.apache.kafka.clients.producer.ProducerConfig;
  * {@code Kafka}
  *
  * @author photowey
- * @date 2024/04/05
- * @since 1.0.0
+ * @since 2024/04/05
+ * @version 1.0.0
  */
 public enum Kafka {
 

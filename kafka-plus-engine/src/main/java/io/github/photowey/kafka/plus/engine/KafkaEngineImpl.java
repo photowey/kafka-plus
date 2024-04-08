@@ -26,8 +26,8 @@ import io.github.photowey.kafka.plus.runtime.service.impl.ProducerServiceImpl;
  * {@code KafkaEngineImpl}
  *
  * @author photowey
- * @date 2024/04/05
- * @since 1.0.0
+ * @since 2024/04/05
+ * @version 1.0.0
  */
 public class KafkaEngineImpl extends AbstractEngine {
 

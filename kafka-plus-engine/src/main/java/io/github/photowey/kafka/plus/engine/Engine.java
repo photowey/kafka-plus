@@ -19,8 +19,8 @@ package io.github.photowey.kafka.plus.engine;
  * {@code Engine}
  *
  * @author photowey
- * @date 2024/04/05
- * @since 1.0.0
+ * @since 2024/04/05
+ * @version 1.0.0
  */
 public interface Engine {
 }

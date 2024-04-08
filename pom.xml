@@ -7,11 +7,11 @@
     <groupId>io.github.photowey</groupId>
     <artifactId>kafka-plus</artifactId>
     <!-- ${kafka.version}.x.y -->
-    <version>3.7.0.1.2</version>
+    <version>3.7.0.1.3</version>
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>An extender of Apache Kafka (the "Kafka").</description>
+    <description>An extender of Apache Kafka (the "Kafka"), named `kafka-plus` (the "KP").</description>
     <url>${io.github.photowey.project.url}</url>
 
     <inceptionYear>2024</inceptionYear>
@@ -194,15 +194,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>${maven-javadoc-plugin.version}</version>
-                <configuration>
-                    <tags>
-                        <tag>
-                            <name>date</name>
-                            <placement>a</placement>
-                            <head>Create time</head>
-                        </tag>
-                    </tags>
-                </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
