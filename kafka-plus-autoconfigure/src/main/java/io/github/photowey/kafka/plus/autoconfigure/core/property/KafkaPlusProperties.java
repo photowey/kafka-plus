@@ -27,14 +27,14 @@ import java.util.Map;
  * {@code KafkaPlusProperties}
  *
  * @author photowey
- * @since 2024/04/06
  * @version 1.0.0
+ * @since 2024/04/06
  */
 public class KafkaPlusProperties implements Serializable {
 
     public static final String SPRING_KAFKA_PLUS_PROPERTY_PREFIX = "spring.kafkaplus";
 
-    private static final long serialVersionUID = 8550578442514111961L;
+    private static final long serialVersionUID = 3337360099086676508L;
 
     // ----------------------------------------------------------------
 
@@ -44,10 +44,25 @@ public class KafkaPlusProperties implements Serializable {
 
     // ----------------------------------------------------------------
 
+    /**
+     * The mode of the Kafka cluster.
+     */
     private Mode mode = new Mode();
+    /**
+     * The bootstrap properties.
+     */
     private Bootstrap bootstrap = new Bootstrap();
+    /**
+     * The admin properties.
+     */
     private Admin admin = new Admin();
+    /**
+     * The consumer properties.
+     */
     private Consumer consumer = new Consumer();
+    /**
+     * The producer properties.
+     */
     private Producer producer = new Producer();
 
     // ----------------------------------------------------------------
@@ -81,6 +96,9 @@ public class KafkaPlusProperties implements Serializable {
 
         private static final long serialVersionUID = 1400298527365044251L;
 
+        /**
+         * The {@code bootstrap.servers}.
+         */
         private String servers = "localhost:9092";
 
         // ----------------------------------------------------------------
@@ -104,16 +122,30 @@ public class KafkaPlusProperties implements Serializable {
 
     public static class Admin implements Serializable {
 
-        private static final long serialVersionUID = -1451532170849716654L;
+        private static final long serialVersionUID = -1008246731350725859L;
+
 
         private List<Topic> topics = new ArrayList<>();
 
         public static class Topic implements Serializable {
 
-            private String topic;
-            private int numPartitions = 1;
-            private int replicationFactor = 1;
+            private static final long serialVersionUID = -4411325091525328608L;
 
+            /**
+             * The topic name.
+             */
+            private String topic;
+            /**
+             * The number of partitions.
+             */
+            private int numPartitions = 1;
+            /**
+             * The replication factor.
+             */
+            private int replicationFactor = 1;
+            /**
+             * The replicas assignments.
+             */
             private Map<Integer, List<Integer>> replicasAssignments;
 
             // ----------------------------------------------------------------
@@ -194,14 +226,26 @@ public class KafkaPlusProperties implements Serializable {
 
         private static final long serialVersionUID = 6473628614295963537L;
 
+        /**
+         * The key deserializer.
+         */
         private String keyDeserializer = StringSerializer.class.getName();
+        /**
+         * The value deserializer.
+         */
         private String valueDeserializer = StringSerializer.class.getName();
-
+        /**
+         * The {@code auto.offset.reset}.
+         */
         private Kafka.Consumer.AutoOffsetReset autoOffsetReset;
-
+        /**
+         * The {@code group.id}.
+         */
         private String groupId;
+        /**
+         * The {@code enable.auto.commit}.
+         */
         private Boolean autoCommit;
-
         /**
          * Subscribes
          * |- A,B,C,...,Z
@@ -291,23 +335,57 @@ public class KafkaPlusProperties implements Serializable {
 
         private static final long serialVersionUID = 8700675817188492332L;
 
+        /**
+         * The key serializer.
+         */
         private String keySerializer = StringSerializer.class.getName();
+        /**
+         * The value serializer.
+         */
         private String valueSerializer = StringSerializer.class.getName();
+        /**
+         * The interceptor.
+         */
         private String interceptor;
+        /**
+         * The partitioner.
+         */
         private String partitioner;
-
+        /**
+         * The {@code acks}.
+         */
         private Kafka.Producer.Acks acks;
-
+        /**
+         * The {@code retries}.
+         */
         private Long retries;
-
+        /**
+         * The {@code batch.size}.
+         */
         private Long batchSize;
+        /**
+         * The {@code buffer.memory}.
+         */
         private Long bufferMemorySize;
-
+        /**
+         * The {@code linger.ms}.
+         */
         private Long lingerMs;
+        /**
+         * The {@code max.block.ms}.
+         */
         private Long maxBlockMs;
+        /**
+         * The {@code request.timeout.ms}.
+         */
         private Long requestTimeoutMs;
+        /**
+         * The {@code delivery.timeout.ms}.
+         */
         private Long deliveryTimeoutMs;
-
+        /**
+         * The {@code enable.idempotence}.
+         */
         private Boolean idempotence;
 
         // ----------------------------------------------------------------

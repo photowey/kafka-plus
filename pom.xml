@@ -11,7 +11,7 @@
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>An extender of Apache Kafka (the "Kafka").</description>
+    <description>An extender of Apache Kafka (the "Kafka"), named `kafka-plus` (the "KP").</description>
     <url>${io.github.photowey.project.url}</url>
 
     <inceptionYear>2024</inceptionYear>

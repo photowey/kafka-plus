@@ -25,11 +25,16 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  * {@code ApplyObjectMapper}
  *
  * @author photowey
- * @since 2024/04/06
  * @version 1.0.0
+ * @since 2024/04/06
  */
 public interface ApplyObjectMapper {
 
+    /**
+     * Init {@link ObjectMapper} instance.
+     *
+     * @return {@link ObjectMapper}
+     */
     default ObjectMapper initObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         this.applyObjectMapper(objectMapper);
@@ -37,6 +42,11 @@ public interface ApplyObjectMapper {
         return objectMapper;
     }
 
+    /**
+     * Apply {@link ObjectMapper}
+     *
+     * @param objectMapper {@link ObjectMapper}
+     */
     default void applyObjectMapper(ObjectMapper objectMapper) {
         objectMapper
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)

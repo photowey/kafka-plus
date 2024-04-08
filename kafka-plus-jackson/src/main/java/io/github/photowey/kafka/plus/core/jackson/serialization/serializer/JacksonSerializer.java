@@ -25,11 +25,14 @@ import org.apache.kafka.common.serialization.Serializer;
  * {@code JacksonSerializer}
  *
  * @author photowey
- * @since 2024/04/06
  * @version 1.0.0
+ * @since 2024/04/06
  */
 public class JacksonSerializer implements Serializer<Object>, ApplyObjectMapper {
 
+    /**
+     * {@link  ObjectMapper}
+     */
     private final ObjectMapper objectMapper;
 
     public JacksonSerializer() {

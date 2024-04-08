@@ -31,12 +31,18 @@ import java.util.Map;
  * {@code JacksonDeserializer}
  *
  * @author photowey
- * @since 2024/04/06
  * @version 1.0.0
+ * @since 2024/04/06
  */
-public class JacksonDeserializer<T> implements Deserializer<Object>, ApplyObjectMapper {
+public class JacksonDeserializer implements Deserializer<Object>, ApplyObjectMapper {
 
+    /**
+     * {@link  ObjectMapper}
+     */
     private final ObjectMapper objectMapper;
+    /**
+     * The charsets.
+     */
     private String encoding = StandardCharsets.UTF_8.name();
 
     public JacksonDeserializer() {
