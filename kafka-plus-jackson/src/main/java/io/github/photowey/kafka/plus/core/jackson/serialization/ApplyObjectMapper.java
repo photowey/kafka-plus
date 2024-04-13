@@ -25,7 +25,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  * {@code ApplyObjectMapper}
  *
  * @author photowey
- * @version 1.0.0
+ * @version 3.7.0.1.0
  * @since 2024/04/06
  */
 public interface ApplyObjectMapper {

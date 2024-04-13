@@ -17,6 +17,7 @@ package io.github.photowey.kafka.plus.core.clients.builder.consumer;
 
 import io.github.photowey.kafka.plus.core.enums.Kafka;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.IsolationLevel;
 import org.apache.kafka.common.serialization.Deserializer;
 
 import java.util.*;
@@ -26,15 +27,15 @@ import java.util.function.Consumer;
  * {@code ConsumerBuilder}
  *
  * @author photowey
+ * @version 3.7.0.1.0
  * @since 2024/04/05
- * @version 1.0.0
  */
 public interface ConsumerBuilder {
 
     /**
      * The {@code bootstrap.servers}.
      *
-     * @param bootstrapServers the bootstrap.servers
+     * @param bootstrapServers the {@code bootstrap.servers}.
      * @return {@link  ConsumerBuilder}
      */
     ConsumerBuilder boostrapServers(String bootstrapServers);
@@ -100,6 +101,47 @@ public interface ConsumerBuilder {
      * @return {@link ConsumerBuilder}
      */
     ConsumerBuilder autoCommit(boolean enabled);
+
+    // ----------------------------------------------------------------
+
+    /**
+     * The {@code isolation.level}.
+     *
+     * @param isolation the {@code isolation.level}
+     * @return {@link ConsumerBuilder}
+     * @see IsolationLevel
+     * @since 3.7.0.1.4
+     */
+    ConsumerBuilder isolation(Kafka.Consumer.Isolation isolation);
+
+    /**
+     * The consumer group instance ID.
+     * |- {@code group.instance.id}
+     *
+     * @param instanceId the {@code group.instance.id}.
+     * @since 3.7.0.1.4
+     */
+    ConsumerBuilder instanceId(String instanceId);
+
+    /**
+     * The partition assignment strategy.
+     * |- {@code partition.assignment.strategy}
+     *
+     * @param strategy the Class of strategy.
+     * @since 3.7.0.1.4
+     */
+    default ConsumerBuilder strategy(Class<?> strategy) {
+        return this.strategy(strategy.getName());
+    }
+
+    /**
+     * The partition assignment strategy.
+     * |- {@code partition.assignment.strategy}
+     *
+     * @param strategy {@code partition.assignment.strategy}
+     * @since 3.7.0.1.4
+     */
+    ConsumerBuilder strategy(String strategy);
 
     // ----------------------------------------------------------------
 

@@ -24,12 +24,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
 
+import static io.github.photowey.kafka.plus.core.checker.ConfigChecker.checkNotBlank;
+import static io.github.photowey.kafka.plus.core.checker.ConfigChecker.checkNotNull;
+
 /**
  * {@code ProducerBuilderImpl}
  *
  * @author photowey
+ * @version 3.7.0.1.0
  * @since 2024/04/05
- * @version 1.0.0
  */
 public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuilder {
 
@@ -38,6 +41,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder boostrapServers(String bootstrapServers) {
+        checkNotBlank("bootstrap.servers", bootstrapServers);
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Bootstrap.Server.ADDRESS.value(), bootstrapServers);
 
@@ -48,6 +52,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public <K> ProducerBuilder keySerializer(Serializer<K> keySerializer) {
+        checkNotNull("keySerializer", keySerializer);
         this.keySerializer = keySerializer;
 
         return this;
@@ -55,6 +60,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public <V> ProducerBuilder valueSerializer(Serializer<V> valueSerializer) {
+        checkNotNull("valueSerializer", valueSerializer);
         this.valueSerializer = valueSerializer;
 
         return this;
@@ -62,6 +68,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder keySerializer(String keySerializer) {
+        checkNotBlank("keySerializer", keySerializer);
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Producer.KEY_SERIALIZER.key(), keySerializer);
 
@@ -70,6 +77,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder valueSerializer(String valueSerializer) {
+        checkNotBlank("valueSerializer", valueSerializer);
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Producer.VALUE_DESERIALIZER.key(), valueSerializer);
 
@@ -80,6 +88,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder props(Properties props) {
+        checkNotNull("props", props);
         super.props = props;
 
         return this;
@@ -87,6 +96,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder configs(Map<String, Object> configs) {
+        checkNotNull("configs", configs);
         super.configs = configs;
 
         return this;
@@ -96,6 +106,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder enhanceProps(Consumer<Properties> fx) {
+        checkNotNull("enhanceProps.fx", fx);
         if (null != super.props) {
             fx.accept(super.props);
         }
@@ -105,6 +116,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder enhanceConfigs(Consumer<Map<String, Object>> fx) {
+        checkNotNull("enhanceConfigs.fx", fx);
         if (null != super.configs) {
             fx.accept(super.configs);
         }
@@ -116,6 +128,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder interceptor(String interceptor) {
+        checkNotBlank("interceptor", interceptor);
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Producer.INTERCEPTOR.key(), interceptor);
 
@@ -124,6 +137,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder partitioner(String partitioner) {
+        checkNotBlank("partitioner", partitioner);
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Producer.PARTITIONER.key(), partitioner);
 
@@ -134,6 +148,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder acks(Kafka.Producer.Acks acks) {
+        checkNotNull("acks", acks);
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Producer.ACKS.key(), acks.value());
 
@@ -214,6 +229,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder checkProps(Consumer<Properties> fx) {
+        checkNotNull("checkProps.fx", fx);
         fx.accept(super.props);
 
         return this;
@@ -221,6 +237,7 @@ public class ProducerBuilderImpl extends AbstractBuilder implements ProducerBuil
 
     @Override
     public ProducerBuilder checkConfigs(Consumer<Map<String, Object>> fx) {
+        checkNotNull("checkConfigs.fx", fx);
         fx.accept(super.configs);
 
         return this;

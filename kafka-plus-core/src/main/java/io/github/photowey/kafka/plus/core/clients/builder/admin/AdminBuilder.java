@@ -25,15 +25,15 @@ import java.util.function.Consumer;
  * {@code AdminBuilder}
  *
  * @author photowey
+ * @version 3.7.0.1.0
  * @since 2024/04/05
- * @version 1.0.0
  */
 public interface AdminBuilder {
 
     /**
      * The {@code bootstrap.servers}.
      *
-     * @param bootstrapServers the bootstrap.servers
+     * @param bootstrapServers the {@code bootstrap.servers}.
      * @return {@link  AdminBuilder}
      */
     AdminBuilder boostrapServers(String bootstrapServers);

@@ -26,7 +26,7 @@ import java.util.Properties;
  *
  * @author photowey
  * @since 2024/04/05
- * @version 1.0.0
+ * @version 3.7.0.1.0
  */
 public abstract class AbstractBuilder {
 

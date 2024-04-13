@@ -23,6 +23,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
 
+import static io.github.photowey.kafka.plus.core.checker.ConfigChecker.checkNotBlank;
+import static io.github.photowey.kafka.plus.core.checker.ConfigChecker.checkNotNull;
+
 /**
  * {@code AdminBuilderImpl}
  * <p>
@@ -51,13 +54,14 @@ import java.util.function.Consumer;
  * </pre>
  *
  * @author photowey
+ * @version 3.7.0.1.0
  * @since 2024/04/05
- * @version 1.0.0
  */
 public class AdminBuilderImpl extends AbstractBuilder implements AdminBuilder {
 
     @Override
     public AdminBuilder boostrapServers(String bootstrapServers) {
+        checkNotBlank("bootstrap.servers", bootstrapServers);
         super.initConfigsIfNecessary();
         super.configs.put(Kafka.Bootstrap.Server.ADDRESS.value(), bootstrapServers);
 
@@ -68,6 +72,7 @@ public class AdminBuilderImpl extends AbstractBuilder implements AdminBuilder {
 
     @Override
     public AdminBuilder props(Properties props) {
+        checkNotNull("props", props);
         super.props = props;
 
         return this;
@@ -75,6 +80,7 @@ public class AdminBuilderImpl extends AbstractBuilder implements AdminBuilder {
 
     @Override
     public AdminBuilder configs(Map<String, Object> configs) {
+        checkNotNull("configs", configs);
         super.configs = configs;
 
         return this;
@@ -84,6 +90,7 @@ public class AdminBuilderImpl extends AbstractBuilder implements AdminBuilder {
 
     @Override
     public AdminBuilder checkProps(Consumer<Properties> fx) {
+        checkNotNull("checkProps.fx", fx);
         fx.accept(super.props);
 
         return this;
@@ -91,6 +98,7 @@ public class AdminBuilderImpl extends AbstractBuilder implements AdminBuilder {
 
     @Override
     public AdminBuilder checkConfigs(Consumer<Map<String, Object>> fx) {
+        checkNotNull("checkConfigs.fx", fx);
         fx.accept(super.configs);
 
         return this;

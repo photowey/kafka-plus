@@ -28,7 +28,7 @@ import org.springframework.core.env.Environment;
  *
  * @author photowey
  * @since 2024/04/06
- * @version 1.0.0
+ * @version 3.7.0.1.0
  */
 @Import(value = {
         KafkaPlusConfigure.class,
