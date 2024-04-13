@@ -25,7 +25,7 @@ import org.apache.kafka.common.IsolationLevel;
  * {@code Kafka}
  *
  * @author photowey
- * @version 1.0.0
+ * @version 3.7.0.1.0
  * @since 2024/04/05
  */
 public enum Kafka {

@@ -24,7 +24,7 @@ import java.util.UUID;
  *
  * @author photowey
  * @since 2024/04/06
- * @version 1.0.0
+ * @version 3.7.0.1.0
  */
 public class Person implements Serializable {
 
