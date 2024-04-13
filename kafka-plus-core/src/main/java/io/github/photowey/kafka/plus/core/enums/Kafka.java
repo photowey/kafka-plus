@@ -19,13 +19,14 @@ import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.admin.AdminClientConfig;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.IsolationLevel;
 
 /**
  * {@code Kafka}
  *
  * @author photowey
- * @since 2024/04/05
  * @version 1.0.0
+ * @since 2024/04/05
  */
 public enum Kafka {
 
@@ -78,7 +79,14 @@ public enum Kafka {
         AUTO_OFFSET_RESET(ConsumerConfig.AUTO_OFFSET_RESET_DOC, ConsumerConfig.AUTO_OFFSET_RESET_CONFIG),
 
         GROUP_ID(CommonClientConfigs.GROUP_ID_DOC, ConsumerConfig.GROUP_ID_CONFIG),
+
         AUTO_COMMIT_ENABLED("If true the consumer's offset will be periodically committed in the background.", ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG),
+
+        // ---------------------------------------------------------------- 3.7.0.1.4
+
+        GROUP_INSTANCE_ID(CommonClientConfigs.GROUP_INSTANCE_ID_DOC, ConsumerConfig.GROUP_INSTANCE_ID_CONFIG),
+        ISOLATION_LEVEL(ConsumerConfig.ISOLATION_LEVEL_DOC, ConsumerConfig.ISOLATION_LEVEL_CONFIG),
+        PARTITION_ASSIGNMENT_STRATEGY(Document.Consumer.PARTITION_ASSIGNMENT_STRATEGY_DOC, ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG),
 
         ;
 
@@ -113,6 +121,30 @@ public enum Kafka {
             private final String value;
 
             AutoOffsetReset(String doc, String value) {
+                this.doc = doc;
+                this.value = value;
+            }
+
+            public String doc() {
+                return this.doc;
+            }
+
+            public String value() {
+                return this.value;
+            }
+        }
+
+        public enum Isolation {
+
+            READ_COMMITTED("consumer.poll() will only return transactional messages which have been committed", IsolationLevel.READ_COMMITTED.toString()),
+            READ_UNCOMMITTED("consumer.poll() will return all messages, even transactional messages which have been aborted", IsolationLevel.READ_UNCOMMITTED.toString()),
+
+            ;
+
+            private final String doc;
+            private final String value;
+
+            Isolation(String doc, String value) {
                 this.doc = doc;
                 this.value = value;
             }
@@ -196,4 +228,31 @@ public enum Kafka {
         }
     }
 
+    /**
+     * @since 3.7.0.1.4
+     */
+    interface Document {
+
+        interface Server {}
+
+        interface Consumer {
+            String PARTITION_ASSIGNMENT_STRATEGY_DOC = "A list of class names or class types, " +
+                    "ordered by preference, of supported partition assignment strategies that the client will use to distribute " +
+                    "partition ownership amongst consumer instances when group management is used. Available options are:" +
+                    "<ul>" +
+                    "<li><code>org.apache.kafka.clients.consumer.RangeAssignor</code>: Assigns partitions on a per-topic basis.</li>" +
+                    "<li><code>org.apache.kafka.clients.consumer.RoundRobinAssignor</code>: Assigns partitions to consumers in a round-robin fashion.</li>" +
+                    "<li><code>org.apache.kafka.clients.consumer.StickyAssignor</code>: Guarantees an assignment that is " +
+                    "maximally balanced while preserving as many existing partition assignments as possible.</li>" +
+                    "<li><code>org.apache.kafka.clients.consumer.CooperativeStickyAssignor</code>: Follows the same StickyAssignor " +
+                    "logic, but allows for cooperative rebalancing.</li>" +
+                    "</ul>" +
+                    "<p>The default assignor is [RangeAssignor, CooperativeStickyAssignor], which will use the RangeAssignor by default, " +
+                    "but allows upgrading to the CooperativeStickyAssignor with just a single rolling bounce that removes the RangeAssignor from the list.</p>" +
+                    "<p>Implementing the <code>org.apache.kafka.clients.consumer.ConsumerPartitionAssignor</code> " +
+                    "interface allows you to plug in a custom assignment strategy.</p>";
+        }
+
+        interface Producer {}
+    }
 }

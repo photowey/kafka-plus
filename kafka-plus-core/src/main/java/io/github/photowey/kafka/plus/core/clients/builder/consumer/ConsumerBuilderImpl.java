@@ -29,8 +29,8 @@ import java.util.function.Consumer;
  * {@code ConsumerBuilderImpl}
  *
  * @author photowey
- * @since 2024/04/05
  * @version 1.0.0
+ * @since 2024/04/05
  */
 public class ConsumerBuilderImpl extends AbstractBuilder implements ConsumerBuilder {
 
@@ -78,6 +78,34 @@ public class ConsumerBuilderImpl extends AbstractBuilder implements ConsumerBuil
 
         return this;
     }
+
+    // ----------------------------------------------------------------
+
+    @Override
+    public ConsumerBuilder isolation(Kafka.Consumer.Isolation isolation) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Consumer.ISOLATION_LEVEL.key(), isolation.value());
+
+        return this;
+    }
+
+    @Override
+    public ConsumerBuilder instanceId(String instanceId) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Consumer.GROUP_INSTANCE_ID.key(), instanceId);
+
+        return this;
+    }
+
+    @Override
+    public ConsumerBuilder strategy(String strategy) {
+        super.initConfigsIfNecessary();
+        super.configs.put(Kafka.Consumer.PARTITION_ASSIGNMENT_STRATEGY.key(), strategy);
+
+        return this;
+    }
+
+    // ----------------------------------------------------------------
 
     @Override
     public ConsumerBuilder autoCommit(boolean enabled) {
