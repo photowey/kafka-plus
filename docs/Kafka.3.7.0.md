@@ -40,3 +40,23 @@
 - **log_dir_event_notification**
 
 ### 1.2.`KRaft`
+
+## 2.Producer
+
+### 2.1.Send
+
+1. Interceptors
+    1. main.thread
+2. Cluster Metadata
+    1. main.thread
+3. Serializer
+    1. main.thread
+4. Partitioner
+    1. main.thread
+5. RecordAccumulator
+    1. main.thread
+    2. sender.thread
+6. Sender
+    1. sender.thread
+7. NetworkClient
+    1. sender.thread
