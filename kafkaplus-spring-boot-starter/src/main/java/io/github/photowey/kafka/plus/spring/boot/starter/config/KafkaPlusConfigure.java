@@ -15,10 +15,8 @@
  */
 package io.github.photowey.kafka.plus.spring.boot.starter.config;
 
-import io.github.photowey.kafka.plus.autoconfigure.KafkaPlusConfigure;
 import io.github.photowey.kafka.plus.autoconfigure.core.property.KafkaPlusProperties;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,19 +24,19 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 /**
- * {@code KafkaPlusAutoConfigure}
+ * {@code KafkaPlusConfigure}
  *
  * @author photowey
- * @version 3.7.0.1.0
+ * @version 3.7.0.1.5
  * @since 2024/04/06
  */
-@AutoConfiguration
+@Configuration
 @Import(value = {
-        KafkaPlusConfigure.class,
-        KafkaPlusAutoConfigure.PropertyConfigure.class,
+        io.github.photowey.kafka.plus.autoconfigure.KafkaPlusConfigure.class,
+        KafkaPlusConfigure.PropertyConfigure.class,
 })
-@ConditionalOnClass(AutoConfiguration.class)
-public class KafkaPlusAutoConfigure {
+@ConditionalOnMissingClass("org.springframework.boot.autoconfigure.AutoConfiguration")
+public class KafkaPlusConfigure {
 
     @Configuration
     static class PropertyConfigure {
