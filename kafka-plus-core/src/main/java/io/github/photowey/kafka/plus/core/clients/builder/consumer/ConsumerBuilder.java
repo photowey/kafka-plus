@@ -184,6 +184,24 @@ public interface ConsumerBuilder {
     // ----------------------------------------------------------------
 
     /**
+     * Enhance custom property configs.
+     *
+     * @param fx the callback.
+     * @return {@link ConsumerBuilder}
+     */
+    ConsumerBuilder enhanceProps(Consumer<Properties> fx);
+
+    /**
+     * Enhance custom configs.
+     *
+     * @param fx the callback.
+     * @return {@link ConsumerBuilder}
+     */
+    ConsumerBuilder enhanceConfigs(Consumer<Map<String, Object>> fx);
+
+    // ----------------------------------------------------------------
+
+    /**
      * Check custom property configs.
      *
      * @param fx the callback.

@@ -274,7 +274,7 @@ public interface ProducerBuilder {
      * Check custom property configs.
      *
      * @param fx the callback.
-     * @return {@link ConsumerBuilder}
+     * @return {@link ProducerBuilder}
      */
     ProducerBuilder checkProps(Consumer<Properties> fx);
 
@@ -282,7 +282,7 @@ public interface ProducerBuilder {
      * Check custom configs.
      *
      * @param fx the callback.
-     * @return {@link ConsumerBuilder}
+     * @return {@link ProducerBuilder}
      */
     ProducerBuilder checkConfigs(Consumer<Map<String, Object>> fx);
 

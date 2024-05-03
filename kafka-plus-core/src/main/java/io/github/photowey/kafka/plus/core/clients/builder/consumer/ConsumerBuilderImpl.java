@@ -165,6 +165,28 @@ public class ConsumerBuilderImpl extends AbstractBuilder implements ConsumerBuil
     // ----------------------------------------------------------------
 
     @Override
+    public ConsumerBuilder enhanceProps(Consumer<Properties> fx) {
+        checkNotNull("enhanceProps.fx", fx);
+        if (null != super.props) {
+            fx.accept(super.props);
+        }
+
+        return this;
+    }
+
+    @Override
+    public ConsumerBuilder enhanceConfigs(Consumer<Map<String, Object>> fx) {
+        checkNotNull("enhanceConfigs.fx", fx);
+        if (null != super.configs) {
+            fx.accept(super.configs);
+        }
+
+        return this;
+    }
+
+    // ----------------------------------------------------------------
+
+    @Override
     public ConsumerBuilder checkProps(Consumer<Properties> fx) {
         checkNotNull("checkProps.fx", fx);
         fx.accept(super.props);
